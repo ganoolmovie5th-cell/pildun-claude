@@ -242,18 +242,15 @@ export const matches: Match[] = [
   m('R16-6', 'round16', 'GER', 'COL', 2, 1, '2026-07-08', '21:00', 'AT&T Stadium', 'Dallas'),
   m('R16-7', 'round16', 'BRA', 'SUI', 3, 0, '2026-07-09', '18:00', 'Lincoln Financial Field', 'Philadelphia'),
   m('R16-8', 'round16', 'NED', 'SWE', 2, 1, '2026-07-09', '21:00', 'BC Place', 'Vancouver'),
-  // ── PEREMPAT FINAL ──
-  m('QF-1', 'quarter', 'ARG', 'ENG', 2, 1, '2026-07-11', '18:00', 'Hard Rock Stadium', 'Miami'),
+  // ── PEREMPAT FINAL ── (selesai 11-12 Juli 2026)
+  m('QF-1', 'quarter', 'ARG', 'NED', 2, 1, '2026-07-11', '18:00', 'Hard Rock Stadium', 'Miami'),
   m('QF-2', 'quarter', 'FRA', 'POR', 2, 0, '2026-07-11', '21:00', 'NRG Stadium', 'Houston'),
-  m('QF-3', 'quarter', 'ESP', 'GER', 3, 1, '2026-07-12', '18:00', 'MetLife Stadium', 'New York'),
-  m('QF-4', 'quarter', 'BRA', 'NED', 4, 2, '2026-07-12', '21:00', 'AT&T Stadium', 'Dallas'),
-  // ── SEMIFINAL ──
-  m('SF-1', 'semi', 'ARG', 'FRA', 3, 2, '2026-07-14', '20:00', 'AT&T Stadium', 'Dallas'),
-  m('SF-2', 'semi', 'ESP', 'BRA', 1, 0, '2026-07-15', '20:00', 'Mercedes-Benz Stadium', 'Atlanta'),
-  // ── PEREBUTAN JUARA 3 ──
-  m('TP-1', 'third-place', 'FRA', 'BRA', 2, 1, '2026-07-18', '18:00', 'Hard Rock Stadium', 'Miami'),
-  // ── FINAL ──
-  m('FIN', 'final', 'ARG', 'ESP', 2, 1, '2026-07-19', '20:00', 'MetLife Stadium', 'New York'),
+  m('QF-3', 'quarter', 'ESP', 'GER', 2, 1, '2026-07-12', '18:00', 'MetLife Stadium', 'New York'),
+  m('QF-4', 'quarter', 'ENG', 'BRA', 2, 1, '2026-07-12', '21:00', 'AT&T Stadium', 'Dallas'),
+  // ── SEMIFINAL ── (belum dimainkan per 15 Juli 2026)
+  m('SF-1', 'semi', 'FRA', 'ESP', null, null, '2026-07-14', '20:00', 'AT&T Stadium', 'Dallas'),
+  m('SF-2', 'semi', 'ENG', 'ARG', null, null, '2026-07-15', '20:00', 'Mercedes-Benz Stadium', 'Atlanta'),
+  // Perebutan juara 3 (18 Juli) & Final (19 Juli) belum ada peserta - ditambahkan saat semifinal selesai.
 ];
 
 export const players: Player[] = [
