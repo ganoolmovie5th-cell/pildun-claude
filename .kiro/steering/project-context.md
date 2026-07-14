@@ -102,7 +102,7 @@ interface Player {
 }
 ```
 
-**Helper functions:** `getTeamByCode`, `getTeamsByGroup`, `getMatchesByGroup`, `getMatchesByStage`, `getMatchesByTeam`, `getKnockoutMatches`, `computeStandings`, `getTopScorers`, `getTopAssists`, `getRecentResults`, `getChampion`, `formatDate`, `formatDateShort`
+**Helper functions:** `getTeamByCode`, `getTeamsByGroup`, `getMatchesByGroup`, `getMatchesByStage`, `getMatchesByTeam`, `computeStandings`, `getTopScorers`, `getTopAssists`, `getRecentResults`, `getChampion`, `formatDateShort`
 
 **computeStandings(group):** hitung main/menang/seri/kalah/GF/GA/GD/poin dari `matches`. Sort: poin → GD → GF → nama.
 
@@ -114,9 +114,15 @@ interface Player {
 - **Match belum main:** `homeScore: null, awayScore: null, status: 'scheduled'`.
 - Klasemen otomatis ikut berubah — tidak perlu edit manual.
 - **Tim/grup:** edit array `teams` (grup asli hasil drawing).
-- **Bracket:** edit match knockout (id `R32-*`, `R16-*`, `QF-*`, `SF-*`, `TP-1`, `FIN`).
+- **Bracket:** edit match knockout (id `R32-*`, `R16-*`, `QF-*`, `SF-*`). Match `third-place` (`TP-1`) & `final` (`FIN`) sengaja belum ada — tambahkan saat semifinal selesai (peserta baru diketahui). `getChampion()` return undefined selama `FIN` belum ada.
 
-**PENTING:** Data saat ini placeholder realistis. Turnamen berlangsung 11 Jun–19 Jul 2026. Update dengan hasil resmi saat tersedia.
+**PENTING:** Data saat ini placeholder realistis. Turnamen berlangsung 11 Jun–19 Jul 2026. Update dengan hasil resmi saat tersedia. Per 15 Jul 2026: perempat final selesai, semifinal (FRA-ESP, ENG-ARG) belum main, belum ada juara.
+
+---
+
+## Favicon
+
+`src/app/icon.svg` — trofi emas + bintang merah, base gelap. Next.js auto-serve sebagai `/icon.svg`.
 
 ---
 
