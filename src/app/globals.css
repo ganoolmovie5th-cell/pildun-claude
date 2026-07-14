@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: #0a0e17;
+  --color-bg-elevated: #121826;
+  --color-surface: #161d2e;
+  --color-surface-2: #1e2740;
+  --color-line: #253049;
+  --color-accent: #e11d2a;
+  --color-accent-hover: #f43545;
+  --color-gold: #f5c518;
+  --color-pitch: #16a34a;
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-text-dim: #64748b;
+  --font-display: var(--font-oswald), 'Oswald', system-ui, sans-serif;
+  --font-body: var(--font-barlow), 'Barlow', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.score-num {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* Broadcast accent bar */
+.accent-bar {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
+}
+
+/* Card surface */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+}
+
+.card-hover {
+  transition: transform .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  background: var(--color-surface-2);
+}
+.card-hover:active { transform: translateY(0) scale(0.995); }
+
+/* Reveal on load */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes riseIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .rise { animation: riseIn .45s cubic-bezier(0.16,1,0.3,1) both; }
+  .rise-1 { animation-delay: .04s; }
+  .rise-2 { animation-delay: .08s; }
+  .rise-3 { animation-delay: .12s; }
+  .rise-4 { animation-delay: .16s; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+::selection { background: color-mix(in srgb, var(--color-accent) 40%, transparent); }
