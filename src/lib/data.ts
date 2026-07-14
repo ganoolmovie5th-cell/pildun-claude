@@ -301,13 +301,6 @@ export function getMatchesByTeam(code: string): Match[] {
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 
-export function getKnockoutMatches(): Match[] {
-  const order: Stage[] = ['round32', 'round16', 'quarter', 'semi', 'third-place', 'final'];
-  return matches
-    .filter((m) => order.includes(m.stage))
-    .sort((a, b) => order.indexOf(a.stage) - order.indexOf(b.stage) || a.date.localeCompare(b.date));
-}
-
 export interface StandingRow {
   team: Team;
   played: number;
@@ -373,10 +366,6 @@ export function getChampion(): Team | undefined {
   if (!final || final.homeScore === null || final.awayScore === null) return undefined;
   const winnerCode = final.homeScore > final.awayScore ? final.home : final.away;
   return getTeamByCode(winnerCode);
-}
-
-export function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 export function formatDateShort(dateStr: string): string {
