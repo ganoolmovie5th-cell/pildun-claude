@@ -60,12 +60,21 @@ Gaya broadcast TV olahraga. Dark base, satu aksen merah.
 | Route | Isi | Render |
 |---|---|---|
 | `/` | Hero, hasil terbaru, top skor, juara, quick links | Static |
-| `/matches` | 104 match, filter babak | Client (filter) |
+| `/matches` | 102 match, filter babak / tanggal / LIVE | Client (filter) |
+| `/matches/[id]` | Detail match: scoreboard, tanggal, status | SSG (102 halaman) |
 | `/groups` | 12 grup + klasemen otomatis | Static |
 | `/bracket` | Bracket knockout 32→final + perebutan juara 3 | Static |
 | `/teams` | Grid 48 tim per grup | Static |
 | `/teams/[code]` | Detail tim: header, statistik grup, pemain, jadwal | SSG (48 halaman) |
 | `/stats` | Top skor, assist, penalti | Static |
+
+Pencarian tim (Cmd/Ctrl+K) via `SearchModal` di-mount lewat `ClientShell` (client wrapper Navbar+modal).
+
+---
+
+## Auto-Refresh Data
+
+`.github/workflows/refresh-data.yml` — cron tiap 3 jam + manual. Jalankan `scripts/fetch-data.mjs`, commit `data.ts` jika berubah, push ke main. Butuh GitHub secret `FOOTBALL_DATA_TOKEN`.
 
 ---
 
@@ -139,6 +148,8 @@ Script fetch `/matches?season=2026` + `/scorers`, map stage (GROUP_STAGE→group
 | `BracketView.tsx` | Bracket horizontal-scroll per babak |
 | `TeamCard.tsx` | Kartu tim (crest, nama, grup) |
 | `StatLeaders.tsx` | Leaderboard pemain (gol/assist/penalti) |
+| `ClientShell.tsx` | Client wrapper: Navbar + SearchModal + Cmd+K |
+| `SearchModal.tsx` | Pencarian tim (Cmd/Ctrl+K) |
 
 ---
 

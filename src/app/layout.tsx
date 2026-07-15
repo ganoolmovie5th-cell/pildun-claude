@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Oswald, Barlow } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
+import ClientShell from '@/components/ClientShell';
 import Footer from '@/components/Footer';
 
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-oswald', display: 'swap' });
@@ -27,8 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="id" className={`${oswald.variable} ${barlow.variable}`}>
       <body className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
+        <ClientShell>{children}</ClientShell>
         <Footer />
       </body>
     </html>

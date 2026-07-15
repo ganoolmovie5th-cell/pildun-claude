@@ -15,11 +15,15 @@ Website hasil Piala Dunia FIFA 2026 (USA, Meksiko, Kanada) terlengkap. Klasemen,
 ## Fitur
 
 - 🏠 **Beranda** — Hero broadcast, hasil terbaru, top skor, juara
-- ⚽ **Pertandingan** — 104 match, filter per babak
+- ⚽ **Pertandingan** — 102 match, filter per babak / tanggal / LIVE
+- 📄 **Detail Match** — Scoreboard per pertandingan (`/matches/[id]`)
 - 📊 **Klasemen Grup** — 12 grup, klasemen dihitung otomatis dari hasil
 - 🏆 **Bracket** — Knockout 32 besar hingga final
 - 🌍 **Tim** — 48 negara + halaman detail (skuad, jadwal, statistik)
-- 📈 **Statistik** — Top skor, assist, kartu kuning
+- 📈 **Statistik** — Top skor, assist, penalti
+- 🔍 **Pencarian tim** — Cmd/Ctrl+K
+- 🔴 **Badge LIVE** — indikator pertandingan berlangsung
+- 🔄 **Auto-refresh** — GitHub Actions sinkron data tiap 3 jam
 
 ## Format Turnamen
 
@@ -89,6 +93,15 @@ FOOTBALL_DATA_TOKEN=your_token node scripts/fetch-data.mjs
 ```
 
 Token JANGAN di-commit — simpan di `.env.local` (sudah di `.gitignore`). Jalankan ulang script untuk sinkron hasil terbaru.
+
+### Auto-refresh (GitHub Actions)
+
+Workflow `.github/workflows/refresh-data.yml` fetch data tiap 3 jam & commit otomatis. Setup sekali:
+
+1. Repo → **Settings → Secrets → Actions**
+2. Tambah secret `FOOTBALL_DATA_TOKEN` = token football-data.org
+
+Bisa juga dijalankan manual: Actions → "Refresh Data" → Run workflow.
 
 ## License
 

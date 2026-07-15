@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Match, getTeamByCode, STAGE_LABELS, formatDateShort } from '@/lib/data';
 import Crest from './Crest';
 
@@ -12,28 +13,32 @@ export default function MatchCard({ match }: { match: Match }) {
   const awayWin = finished && match.awayScore! > match.homeScore!;
 
   return (
-    <div className="card card-hover rounded-lg overflow-hidden">
-      <div className="flex items-center justify-between px-3 py-1.5 border-b border-line bg-bg-elevated">
-        <span className="text-[11px] uppercase tracking-wide text-text-dim font-semibold">
-          {STAGE_LABELS[match.stage]}{match.group ? ` \u00b7 Grup ${match.group}` : ''}
-        </span>
-        <span className="text-[11px] text-text-dim tnum">{formatDateShort(match.date)}</span>
-      </div>
+    <Link href={`/matches/${match.id}`} className="block">
+      <div className="card card-hover rounded-lg overflow-hidden">
+        <div className="flex items-center justify-between px-3 py-1.5 border-b border-line bg-bg-elevated">
+          <span className="text-[11px] uppercase tracking-wide text-text-dim font-semibold">
+            {STAGE_LABELS[match.stage]}{match.group ? ` \u00b7 Grup ${match.group}` : ''}
+          </span>
+          <span className="text-[11px] text-text-dim tnum">{formatDateShort(match.date)}</span>
+        </div>
 
-      <div className="px-4 py-3">
-        <TeamRow crest={home.crest} name={home.name} score={match.homeScore} win={homeWin} dim={!finished} />
-        <div className="my-1.5 h-px bg-line/60" />
-        <TeamRow crest={away.crest} name={away.name} score={match.awayScore} win={awayWin} dim={!finished} />
-      </div>
+        <div className="px-4 py-3">
+          <TeamRow crest={home.crest} name={home.name} score={match.homeScore} win={homeWin} dim={!finished} />
+          <div className="my-1.5 h-px bg-line/60" />
+          <TeamRow crest={away.crest} name={away.name} score={match.awayScore} win={awayWin} dim={!finished} />
+        </div>
 
-      <div className="px-4 py-1.5 border-t border-line flex items-center justify-end">
-        {finished
-          ? <span className="text-[10px] uppercase font-bold text-pitch tracking-wide">Selesai</span>
-          : live
-          ? <span className="text-[10px] uppercase font-bold text-accent tracking-wide">Live</span>
-          : <span className="text-[10px] uppercase font-bold text-gold tracking-wide tnum">{match.time} UTC</span>}
+        <div className="px-4 py-1.5 border-t border-line flex items-center justify-end">
+          {finished
+            ? <span className="text-[10px] uppercase font-bold text-pitch tracking-wide">Selesai</span>
+            : live
+            ? <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold text-accent tracking-wide">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />Live
+              </span>
+            : <span className="text-[10px] uppercase font-bold text-gold tracking-wide tnum">{match.time} UTC</span>}
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

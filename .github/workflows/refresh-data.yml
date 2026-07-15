@@ -1,0 +1,48 @@
+name: 🔄 Refresh Data Piala Dunia 2026
+
+on:
+  # Tiap 3 jam (data live sering berubah saat turnamen)
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    name: Fetch & commit data terbaru
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 🔄 Generate data dari football-data.org
+        run: node scripts/fetch-data.mjs
+        env:
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+
+      - name: 📝 Commit jika ada perubahan
+        run: |
+          if git diff --quiet src/lib/data.ts; then
+            echo "Data tidak berubah, skip commit."
+          else
+            git config user.name "PilDun Bot"
+            git config user.email "bot@pildun.local"
+            git add src/lib/data.ts
+            git commit -m "chore(data): auto-refresh dari football-data.org — $(TZ='Asia/Jakarta' date '+%Y-%m-%d %H:%M WIB')"
+            git push origin main
+            echo "Data diperbarui & di-push."
+          fi
+
+      - name: 📊 Summary
+        run: |
+          echo "## Refresh Data" >> $GITHUB_STEP_SUMMARY
+          echo "🕐 $(TZ='Asia/Jakarta' date '+%d %b %Y %H:%M WIB')" >> $GITHUB_STEP_SUMMARY
