@@ -2,18 +2,21 @@
 
 ## Overview
 
-Website hasil Piala Dunia FIFA 2026 (USA-Meksiko-Kanada) terlengkap. Data statis, tanpa backend.
+Website hasil Piala Dunia FIFA 2026 (USA-Meksiko-Kanada) terlengkap. Data dari API football-data.org, di-generate ke file statis.
 
 - **Repo:** ganoolmovie5th-cell/pildun-claude
 - **Branch:** `main` (push langsung)
 - **Stack:** Next.js 16 (App Router) + TypeScript strict + Tailwind CSS 4
+- **Data source:** football-data.org API (auto-generate ke `data.ts`)
 - **Deploy:** Vercel
 
 ---
 
 ## Aturan Penting
 
-- Semua data statis di `src/lib/data.ts` — tidak ada database
+- `src/lib/data.ts` AUTO-GENERATED oleh `scripts/fetch-data.mjs` — JANGAN edit manual
+- Update data: `FOOTBALL_DATA_TOKEN=xxx node scripts/fetch-data.mjs`
+- Token API JANGAN di-commit — di `.env.local` (gitignored)
 - UI dalam Bahasa Indonesia
 - Dark mode terkunci (broadcast aesthetic) — tidak ada light mode
 - Push langsung ke `main`
@@ -62,7 +65,7 @@ Gaya broadcast TV olahraga. Dark base, satu aksen merah.
 | `/bracket` | Bracket knockout 32→final + perebutan juara 3 | Static |
 | `/teams` | Grid 48 tim per grup | Static |
 | `/teams/[code]` | Detail tim: header, statistik grup, pemain, jadwal | SSG (48 halaman) |
-| `/stats` | Top skor, assist, kartu | Static |
+| `/stats` | Top skor, assist, penalti | Static |
 
 ---
 
@@ -70,26 +73,22 @@ Gaya broadcast TV olahraga. Dark base, satu aksen merah.
 
 ```typescript
 interface Team {
-  code: string;         // 'ARG' (3-letter, dipakai di URL /teams/[code])
+  code: string;         // 'ARG' (tla dari API, dipakai di URL /teams/[code])
   name: string;
-  flag: string;         // emoji bendera
+  crest: string;        // URL logo dari football-data.org
   group: string;        // 'A'..'L'
-  confederation: Confederation;
-  fifaRank: number;
 }
 
 interface Match {
-  id: string;
+  id: string;           // match id dari API
   stage: Stage;         // group | round32 | round16 | quarter | semi | third-place | final
   group?: string;       // hanya stage group
   home: string;         // team code
   away: string;         // team code
   homeScore: number | null;   // null = belum main
   awayScore: number | null;
-  date: string;         // YYYY-MM-DD
-  time: string;         // HH:MM
-  stadium: string;
-  city: string;
+  date: string;         // YYYY-MM-DD (UTC)
+  time: string;         // HH:MM (UTC)
   status: MatchStatus;  // scheduled | live | finished
 }
 
@@ -98,7 +97,7 @@ interface Player {
   team: string;         // team code
   goals: number;
   assists: number;
-  yellowCards: number;
+  penalties: number;
 }
 ```
 
@@ -110,13 +109,15 @@ interface Player {
 
 ## Cara Update Data
 
-- **Skor match:** ubah `homeScore`/`awayScore` di `matches`. Set `status: 'finished'`.
-- **Match belum main:** `homeScore: null, awayScore: null, status: 'scheduled'`.
-- Klasemen otomatis ikut berubah — tidak perlu edit manual.
-- **Tim/grup:** edit array `teams` (grup asli hasil drawing).
-- **Bracket:** edit match knockout (id `R32-*`, `R16-*`, `QF-*`, `SF-*`). Match `third-place` (`TP-1`) & `final` (`FIN`) sengaja belum ada — tambahkan saat semifinal selesai (peserta baru diketahui). `getChampion()` return undefined selama `FIN` belum ada.
+Data dari football-data.org API. JANGAN edit `data.ts` manual — regenerate:
 
-**PENTING:** Data saat ini placeholder realistis. Turnamen berlangsung 11 Jun–19 Jul 2026. Update dengan hasil resmi saat tersedia. Per 15 Jul 2026: perempat final selesai, semifinal (FRA-ESP, ENG-ARG) belum main, belum ada juara.
+```bash
+FOOTBALL_DATA_TOKEN=xxx node scripts/fetch-data.mjs
+```
+
+Script fetch `/matches?season=2026` + `/scorers`, map stage (GROUP_STAGE→group, dst), tulis ulang `data.ts`. Klasemen & bracket ikut update otomatis. `getChampion()` return undefined selama final belum ada pemenang (API `winner: null`).
+
+**PENTING:** Turnamen berlangsung 11 Jun–19 Jul 2026. Per 15 Jul: semifinal (FRA 0-2 ESP selesai, ENG vs ARG belum main), belum ada juara. Jalankan script berkala untuk sinkron.
 
 ---
 
@@ -132,11 +133,12 @@ interface Player {
 |---|---|
 | `Navbar.tsx` | Sticky nav, 6 link, mobile menu |
 | `Footer.tsx` | Footer links |
-| `MatchCard.tsx` | Scoreline: flag, skor, status, venue |
+| `Crest.tsx` | Logo tim (`<img>` dari crest URL) |
+| `MatchCard.tsx` | Scoreline: crest, skor, status |
 | `GroupTable.tsx` | Klasemen tabel (top 2 highlight hijau) |
 | `BracketView.tsx` | Bracket horizontal-scroll per babak |
-| `TeamCard.tsx` | Kartu tim (flag, nama, konfederasi, rank) |
-| `StatLeaders.tsx` | Leaderboard pemain (gol/assist/kartu) |
+| `TeamCard.tsx` | Kartu tim (crest, nama, grup) |
+| `StatLeaders.tsx` | Leaderboard pemain (gol/assist/penalti) |
 
 ---
 

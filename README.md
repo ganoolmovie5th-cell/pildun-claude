@@ -63,21 +63,32 @@ pildun-claude/
 │   │   ├── GroupTable.tsx        # Klasemen otomatis
 │   │   ├── BracketView.tsx       # Bracket knockout
 │   │   ├── TeamCard.tsx
+│   │   ├── Crest.tsx             # Logo tim (img)
 │   │   └── StatLeaders.tsx       # Leaderboard pemain
 │   └── lib/
-│       └── data.ts               # Data statis (48 tim, 104 match, players)
+│       └── data.ts               # AUTO-GENERATED dari API (48 tim, 102 match, players)
+├── scripts/
+│   └── fetch-data.mjs            # Generator data dari football-data.org
 └── docs/superpowers/specs/       # Design spec
 ```
 
 ## Data
 
-Semua data statis di `src/lib/data.ts`:
-- `teams` — 48 tim (code, nama, flag, grup, konfederasi, rank FIFA)
-- `matches` — 104 pertandingan (skor, tanggal, stadion, status)
-- `players` — statistik top pemain
+Data di `src/lib/data.ts` **auto-generated** dari [football-data.org](https://www.football-data.org) API — data resmi & akurat.
+
+- `teams` — 48 tim (code, nama, crest/logo, grup)
+- `matches` — 102 pertandingan (skor, tanggal, status live/finished/scheduled)
+- `players` — top scorer (gol, assist, penalti)
 - Klasemen grup **dihitung otomatis** via `computeStandings()` dari hasil match
 
-**Catatan:** Turnamen sedang berlangsung (11 Jun–19 Jul 2026). Skor placeholder realistis — edit manual di `data.ts` saat hasil resmi keluar.
+### Update data (regenerate)
+
+```bash
+# Token gratis: https://www.football-data.org/client/register
+FOOTBALL_DATA_TOKEN=your_token node scripts/fetch-data.mjs
+```
+
+Token JANGAN di-commit — simpan di `.env.local` (sudah di `.gitignore`). Jalankan ulang script untuk sinkron hasil terbaru.
 
 ## License
 
