@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { computeStandings } from '@/lib/data';
+import Crest from './Crest';
 
 export default function GroupTable({ group }: { group: string }) {
   const rows = computeStandings(group);
@@ -29,7 +30,7 @@ export default function GroupTable({ group }: { group: string }) {
               <td className="px-3 py-2.5">
                 <Link href={`/teams/${r.team.code}`} className="flex items-center gap-2.5 group">
                   <span className={`w-5 text-center text-xs font-bold tnum ${i < 2 ? 'text-pitch' : 'text-text-dim'}`}>{i + 1}</span>
-                  <span className="text-lg leading-none">{r.team.flag}</span>
+                  <Crest src={r.team.crest} alt={r.team.name} size={20} />
                   <span className="font-medium group-hover:text-accent transition-colors truncate">{r.team.name}</span>
                 </Link>
               </td>

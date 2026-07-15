@@ -1,4 +1,5 @@
 import { Stage, getMatchesByStage, getTeamByCode, STAGE_LABELS, Match } from '@/lib/data';
+import Crest from './Crest';
 
 const ROUNDS: Stage[] = ['round32', 'round16', 'quarter', 'semi', 'final'];
 
@@ -13,17 +14,17 @@ function BracketMatch({ match }: { match: Match }) {
 
   return (
     <div className="card rounded-md overflow-hidden w-52 shrink-0">
-      <Row flag={home.flag} name={home.name} score={hs} win={homeWin} />
+      <Row crest={home.crest} name={home.name} score={hs} win={homeWin} />
       <div className="h-px bg-line" />
-      <Row flag={away.flag} name={away.name} score={as} win={awayWin} />
+      <Row crest={away.crest} name={away.name} score={as} win={awayWin} />
     </div>
   );
 }
 
-function Row({ flag, name, score, win }: { flag: string; name: string; score: number | null; win: boolean }) {
+function Row({ crest, name, score, win }: { crest: string; name: string; score: number | null; win: boolean }) {
   return (
     <div className={`flex items-center gap-2 px-2.5 py-1.5 ${win ? 'bg-accent/10' : ''}`}>
-      <span className="text-base leading-none">{flag}</span>
+      <Crest src={crest} alt={name} size={18} />
       <span className={`text-xs font-medium truncate flex-1 ${win ? 'text-text' : 'text-text-muted'}`}>{name}</span>
       <span className={`score-num text-sm tabular-nums ${win ? 'text-accent' : 'text-text-dim'}`}>{score === null ? '\u2013' : score}</span>
     </div>

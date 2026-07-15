@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getChampion, getRecentResults, getTopScorers, matches, getMatchesByStage } from '@/lib/data';
 import MatchCard from '@/components/MatchCard';
 import StatLeaders from '@/components/StatLeaders';
+import Crest from '@/components/Crest';
 
 export default function HomePage() {
   const champion = getChampion();
@@ -54,7 +55,7 @@ export default function HomePage() {
           {champion && final && (
             <div className="mt-10 inline-flex items-center gap-4 card rounded-lg px-5 py-3 rise rise-4">
               <span className="text-[11px] uppercase tracking-widest text-gold font-bold">Juara</span>
-              <span className="text-3xl leading-none">{champion.flag}</span>
+              <Crest src={champion.crest} alt={champion.name} size={30} />
               <span className="font-display font-bold text-2xl">{champion.name}</span>
             </div>
           )}

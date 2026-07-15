@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import BracketView from '@/components/BracketView';
 import MatchCard from '@/components/MatchCard';
+import Crest from '@/components/Crest';
 import { getMatchesByStage, getChampion } from '@/lib/data';
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default function BracketPage() {
         {champion && (
           <div className="inline-flex items-center gap-3 card rounded-lg px-4 py-2.5">
             <span className="text-[11px] uppercase tracking-widest text-gold font-bold">Juara</span>
-            <span className="text-2xl leading-none">{champion.flag}</span>
+            <Crest src={champion.crest} alt={champion.name} size={26} />
             <span className="font-display font-bold text-xl">{champion.name}</span>
           </div>
         )}

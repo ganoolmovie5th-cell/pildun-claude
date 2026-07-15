@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { teams, getTeamByCode, getMatchesByTeam, computeStandings, players, CONFED_LABELS } from '@/lib/data';
+import { teams, getTeamByCode, getMatchesByTeam, computeStandings, players } from '@/lib/data';
 import MatchCard from '@/components/MatchCard';
+import Crest from '@/components/Crest';
 
 export function generateStaticParams() {
   return teams.map((t) => ({ code: t.code }));
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
   if (!team) return { title: 'Tim Tidak Ditemukan' };
   return {
     title: `${team.name} - Piala Dunia 2026`,
-    description: `Jadwal, hasil, dan statistik ${team.name} di Piala Dunia 2026. Grup ${team.group}, ${CONFED_LABELS[team.confederation]}.`,
+    description: `Jadwal, hasil, dan statistik ${team.name} di Piala Dunia 2026. Grup ${team.group}.`,
   };
 }
 
@@ -36,13 +37,12 @@ export default async function TeamDetailPage({ params }: { params: Promise<{ cod
       </Link>
 
       <div className="card rounded-lg p-6 sm:p-8 mb-8 flex items-center gap-5">
-        <span className="text-6xl sm:text-7xl leading-none">{team.flag}</span>
+        <Crest src={team.crest} alt={team.name} size={72} />
         <div>
           <h1 className="font-display font-bold text-3xl sm:text-4xl uppercase leading-none mb-2">{team.name}</h1>
           <div className="flex flex-wrap gap-2 text-xs uppercase tracking-wide">
             <span className="card rounded px-2.5 py-1 text-text-muted">Grup {team.group}</span>
-            <span className="card rounded px-2.5 py-1 text-text-muted">{CONFED_LABELS[team.confederation]}</span>
-            <span className="card rounded px-2.5 py-1 text-text-muted tnum">Rank FIFA #{team.fifaRank}</span>
+            <span className="card rounded px-2.5 py-1 text-text-muted tnum">{team.code}</span>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default async function TeamDetailPage({ params }: { params: Promise<{ cod
 
       {teamPlayers.length > 0 && (
         <div className="mb-8">
-          <h2 className="font-display font-bold text-xl uppercase mb-3">Pemain Kunci</h2>
+          <h2 className="font-display font-bold text-xl uppercase mb-3">Pencetak Gol</h2>
           <div className="card rounded-lg overflow-hidden">
             {teamPlayers.map((p) => (
               <div key={p.name} className="flex items-center gap-3 px-4 py-2.5 border-b border-line/50 last:border-0">

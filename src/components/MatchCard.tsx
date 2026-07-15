@@ -1,4 +1,5 @@
 import { Match, getTeamByCode, STAGE_LABELS, formatDateShort } from '@/lib/data';
+import Crest from './Crest';
 
 export default function MatchCard({ match }: { match: Match }) {
   const home = getTeamByCode(match.home);
@@ -6,6 +7,7 @@ export default function MatchCard({ match }: { match: Match }) {
   if (!home || !away) return null;
 
   const finished = match.status === 'finished' && match.homeScore !== null && match.awayScore !== null;
+  const live = match.status === 'live';
   const homeWin = finished && match.homeScore! > match.awayScore!;
   const awayWin = finished && match.awayScore! > match.homeScore!;
 
@@ -19,26 +21,27 @@ export default function MatchCard({ match }: { match: Match }) {
       </div>
 
       <div className="px-4 py-3">
-        <TeamRow flag={home.flag} name={home.name} score={match.homeScore} win={homeWin} dim={!finished} />
+        <TeamRow crest={home.crest} name={home.name} score={match.homeScore} win={homeWin} dim={!finished} />
         <div className="my-1.5 h-px bg-line/60" />
-        <TeamRow flag={away.flag} name={away.name} score={match.awayScore} win={awayWin} dim={!finished} />
+        <TeamRow crest={away.crest} name={away.name} score={match.awayScore} win={awayWin} dim={!finished} />
       </div>
 
-      <div className="px-4 py-1.5 border-t border-line flex items-center justify-between">
-        <span className="text-[11px] text-text-dim truncate">{match.stadium}, {match.city}</span>
+      <div className="px-4 py-1.5 border-t border-line flex items-center justify-end">
         {finished
-          ? <span className="text-[10px] uppercase font-bold text-pitch tracking-wide">FT</span>
-          : <span className="text-[10px] uppercase font-bold text-gold tracking-wide tnum">{match.time}</span>}
+          ? <span className="text-[10px] uppercase font-bold text-pitch tracking-wide">Selesai</span>
+          : live
+          ? <span className="text-[10px] uppercase font-bold text-accent tracking-wide">Live</span>
+          : <span className="text-[10px] uppercase font-bold text-gold tracking-wide tnum">{match.time} UTC</span>}
       </div>
     </div>
   );
 }
 
-function TeamRow({ flag, name, score, win, dim }: { flag: string; name: string; score: number | null; win: boolean; dim: boolean }) {
+function TeamRow({ crest, name, score, win, dim }: { crest: string; name: string; score: number | null; win: boolean; dim: boolean }) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2.5 min-w-0">
-        <span className="text-xl leading-none shrink-0">{flag}</span>
+        <Crest src={crest} alt={name} size={22} />
         <span className={`text-sm font-medium truncate ${win ? 'text-text' : 'text-text-muted'}`}>{name}</span>
       </div>
       <span className={`score-num text-lg tabular-nums shrink-0 ${win ? 'text-accent' : dim ? 'text-text-dim' : 'text-text'}`}>
