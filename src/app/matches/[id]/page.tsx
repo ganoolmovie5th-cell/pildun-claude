@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { matches, getTeamByCode, STAGE_LABELS } from '@/lib/data';
+import { matches, getTeamByCode, STAGE_LABELS, formatDateShort } from '@/lib/data';
 import Crest from '@/components/Crest';
+import MatchExtras from '@/components/MatchExtras';
 
 export function generateStaticParams() {
   return matches.map((m) => ({ id: m.id }));
@@ -31,9 +32,16 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
 
   const finished = match.status === 'finished' && match.homeScore !== null && match.awayScore !== null;
   const live = match.status === 'live';
-  const dateFull = new Date(match.date + 'T' + match.time + ':00Z').toLocaleDateString('id-ID', {
+  const scheduled = match.status === 'scheduled';
+  const kickoffISO = `${match.date}T${match.time}:00Z`;
+  const dateFull = new Date(kickoffISO).toLocaleDateString('id-ID', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   });
+
+  const h2h = matches.filter((m) =>
+    m.id !== match.id && m.status === 'finished' &&
+    ((m.home === match.home && m.away === match.away) || (m.home === match.away && m.away === match.home))
+  );
 
   return (
     <div className="max-w-[800px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -82,6 +90,28 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
           <p className="text-xs text-text-dim mt-0.5">Kickoff {match.time} UTC</p>
         </div>
       </div>
+
+      <MatchExtras matchId={match.id} home={home.name} away={away.name} kickoffISO={kickoffISO} scheduled={scheduled} />
+
+      {h2h.length > 0 && (
+        <div className="mt-6 card rounded-lg p-5">
+          <p className="text-xs text-text-dim uppercase tracking-wide mb-3">Pertemuan Lain di Turnamen Ini</p>
+          <ul className="space-y-2">
+            {h2h.map((m) => {
+              const h = getTeamByCode(m.home);
+              const a = getTeamByCode(m.away);
+              return (
+                <li key={m.id}>
+                  <Link href={`/matches/${m.id}`} className="flex items-center justify-between text-sm hover:text-accent transition-colors">
+                    <span>{h?.name} <span className="score-num text-text">{m.homeScore} - {m.awayScore}</span> {a?.name}</span>
+                    <span className="text-xs text-text-dim">{STAGE_LABELS[m.stage]} {'\u00b7'} {formatDateShort(m.date)}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

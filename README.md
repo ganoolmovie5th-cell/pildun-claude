@@ -16,13 +16,17 @@ Website hasil Piala Dunia FIFA 2026 (USA, Meksiko, Kanada) terlengkap. Klasemen,
 
 - 🏠 **Beranda** — Hero broadcast, hasil terbaru, top skor, juara
 - ⚽ **Pertandingan** — 102 match, filter per babak / tanggal / LIVE
-- 📄 **Detail Match** — Scoreboard per pertandingan (`/matches/[id]`)
+- 📄 **Detail Match** — Scoreboard, countdown kickoff, prediksi skor, head-to-head
 - 📊 **Klasemen Grup** — 12 grup, klasemen dihitung otomatis dari hasil
 - 🏆 **Bracket** — Knockout 32 besar hingga final
-- 🌍 **Tim** — 48 negara + halaman detail (skuad, jadwal, statistik)
-- 📈 **Statistik** — Top skor, assist, penalti
+- 🛣️ **Jalur ke Final** — Perjalanan knockout tiap tim yang masih bertahan
+- 🌍 **Tim** — 48 negara, filter per grup + halaman detail
+- 📈 **Statistik** — Top skor, assist, penalti (dengan bar chart)
+- 🔮 **Prediksi skor** — Tebak hasil match, disimpan di browser
 - 🔍 **Pencarian tim** — Cmd/Ctrl+K
+- 🌗 **Dark/Light** — Toggle tema, tersimpan di localStorage
 - 🔴 **Badge LIVE** — indikator pertandingan berlangsung
+- 🔍 **SEO** — sitemap.xml + robots.txt (150+ halaman ter-index)
 - 🔄 **Auto-refresh** — GitHub Actions sinkron data tiap 3 jam
 
 ## Format Turnamen

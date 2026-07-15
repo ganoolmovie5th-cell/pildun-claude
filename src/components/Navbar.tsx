@@ -9,14 +9,22 @@ const links = [
   { href: '/matches', label: 'Pertandingan' },
   { href: '/groups', label: 'Grup' },
   { href: '/bracket', label: 'Bracket' },
+  { href: '/road', label: 'Jalur' },
   { href: '/teams', label: 'Tim' },
   { href: '/stats', label: 'Statistik' },
 ];
 
 export default function Navbar({ onSearchOpen }: { onSearchOpen?: () => void }) {
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const pathname = usePathname();
   const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+
+  useEffect(() => {
+    const saved = (localStorage.getItem('theme') as 'dark' | 'light') || 'dark';
+    setTheme(saved);
+    document.documentElement.setAttribute('data-theme', saved);
+  }, []);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -28,6 +36,13 @@ export default function Navbar({ onSearchOpen }: { onSearchOpen?: () => void }) 
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [onSearchOpen]);
+
+  function toggleTheme() {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    localStorage.setItem('theme', next);
+    document.documentElement.setAttribute('data-theme', next);
+  }
 
   return (
     <nav className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md border-b border-line">
@@ -58,6 +73,12 @@ export default function Navbar({ onSearchOpen }: { onSearchOpen?: () => void }) 
               aria-label="Cari tim">
               <span>{'\u{1F50D}'}</span>
               <span className="hidden sm:inline text-xs opacity-60">{'\u2318'}K</span>
+            </button>
+
+            <button onClick={toggleTheme}
+              className="p-2 card card-hover rounded-md text-text-muted"
+              aria-label="Ganti tema">
+              {theme === 'dark' ? '\u2600\uFE0F' : '\u{1F319}'}
             </button>
 
             <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-text-muted hover:text-text" aria-label="Menu">

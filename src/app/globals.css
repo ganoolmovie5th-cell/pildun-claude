@@ -19,11 +19,24 @@
 
 html { scroll-behavior: smooth; }
 
+/* Light theme override */
+[data-theme="light"] {
+  --color-bg: #f4f5f8;
+  --color-bg-elevated: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef1f6;
+  --color-line: #d9dde6;
+  --color-text: #0f1729;
+  --color-text-muted: #475569;
+  --color-text-dim: #7c8aa0;
+}
+
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 h1, h2, h3, .font-display {

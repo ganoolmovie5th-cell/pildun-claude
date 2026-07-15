@@ -61,14 +61,18 @@ Gaya broadcast TV olahraga. Dark base, satu aksen merah.
 |---|---|---|
 | `/` | Hero, hasil terbaru, top skor, juara, quick links | Static |
 | `/matches` | 102 match, filter babak / tanggal / LIVE | Client (filter) |
-| `/matches/[id]` | Detail match: scoreboard, tanggal, status | SSG (102 halaman) |
+| `/matches/[id]` | Detail match: scoreboard, countdown, prediksi, head-to-head | SSG (102 halaman) |
 | `/groups` | 12 grup + klasemen otomatis | Static |
 | `/bracket` | Bracket knockout 32→final + perebutan juara 3 | Static |
-| `/teams` | Grid 48 tim per grup | Static |
+| `/road` | Jalur ke final tim yang masih bertahan | Static |
+| `/teams` | Grid 48 tim, filter per grup | Client (filter) |
 | `/teams/[code]` | Detail tim: header, statistik grup, pemain, jadwal | SSG (48 halaman) |
-| `/stats` | Top skor, assist, penalti | Static |
+| `/stats` | Top skor, assist, penalti (bar chart) | Static |
 
-Pencarian tim (Cmd/Ctrl+K) via `SearchModal` di-mount lewat `ClientShell` (client wrapper Navbar+modal).
+- Pencarian tim (Cmd/Ctrl+K) via `SearchModal` di-mount lewat `ClientShell`
+- Dark/Light toggle di Navbar → `[data-theme]` di globals.css, tersimpan `localStorage.theme`
+- Prediksi skor & countdown di `MatchExtras` (match `scheduled`), tersimpan `localStorage` key `pred:{matchId}`
+- SEO: `sitemap.ts` (`/sitemap.xml`, semua route+tim+match) + `robots.ts`
 
 ---
 
