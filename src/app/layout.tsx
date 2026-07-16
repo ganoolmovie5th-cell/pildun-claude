@@ -9,7 +9,7 @@ const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '600', '700']
 const barlow = Barlow({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-barlow', display: 'swap' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://piala-dunia.web.id'),
+  metadataBase: new URL('https://www.piala-dunia.web.id'),
   title: {
     default: 'Piala Dunia 2026 - Hasil, Klasemen & Bracket Terlengkap',
     template: '%s | Piala Dunia 2026',

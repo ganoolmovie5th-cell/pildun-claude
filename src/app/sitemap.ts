@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { teams, matches } from '@/lib/data';
 
-const BASE = 'https://piala-dunia.web.id';
+const BASE = 'https://www.piala-dunia.web.id';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = ['', '/matches', '/groups', '/bracket', '/teams', '/stats', '/road', '/timeline', '/prediksi'].map((p) => ({
