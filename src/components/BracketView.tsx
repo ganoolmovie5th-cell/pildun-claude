@@ -1,6 +1,7 @@
 import { Stage, getMatchesByStage, getTeamByCode, getChampion, STAGE_LABELS, Match } from '@/lib/data';
 import Crest from './Crest';
 import Countdown from './Countdown';
+import Trophy from './Trophy';
 
 const ROUNDS: Stage[] = ['round32', 'round16', 'quarter', 'semi', 'final'];
 
@@ -98,13 +99,13 @@ export default function BracketView() {
           <div className="flex-1 flex items-center">
             {champion ? (
               <div className="card rounded-lg w-48 shrink-0 p-5 text-center" style={{ borderColor: 'var(--color-gold)' }}>
-                <span className="text-2xl block mb-2">{'\u{1F3C6}'}</span>
+                <div className="flex justify-center mb-2"><Trophy size={40} /></div>
                 <Crest src={champion.crest} alt={champion.name} size={48} />
                 <p className="font-display font-bold text-lg mt-2">{champion.name}</p>
               </div>
             ) : (
               <div className="card rounded-lg border-dashed border-line/70 w-48 shrink-0 p-5 text-center">
-                <span className="text-2xl block mb-2 opacity-40">{'\u{1F3C6}'}</span>
+                <div className="flex justify-center mb-2 opacity-40"><Trophy size={36} /></div>
                 <p className="text-xs text-text-dim">Menanti hasil final</p>
                 {finalKickoff && <Countdown targetISO={finalKickoff} />}
               </div>
