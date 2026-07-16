@@ -91,7 +91,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
         </div>
       </div>
 
-      <MatchExtras matchId={match.id} home={home.name} away={away.name} kickoffISO={kickoffISO} scheduled={scheduled} />
+      <MatchExtras matchId={match.id} home={home.name} away={away.name} kickoffISO={kickoffISO} scheduled={scheduled} finished={finished} actualHome={match.homeScore} actualAway={match.awayScore} />
 
       {h2h.length > 0 && (
         <div className="mt-6 card rounded-lg p-5">

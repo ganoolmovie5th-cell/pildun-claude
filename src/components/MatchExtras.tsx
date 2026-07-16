@@ -8,6 +8,9 @@ interface Props {
   away: string;
   kickoffISO: string;
   scheduled: boolean;
+  finished: boolean;
+  actualHome: number | null;
+  actualAway: number | null;
 }
 
 function diff(target: number) {
@@ -21,12 +24,23 @@ function diff(target: number) {
   };
 }
 
-export default function MatchExtras({ matchId, home, away, kickoffISO, scheduled }: Props) {
+function outcome(h: number, a: number) {
+  return h > a ? 'H' : h < a ? 'A' : 'D';
+}
+
+function scorePrediction(ph: number, pa: number, ah: number, aa: number) {
+  if (ph === ah && pa === aa) return 3;
+  if (outcome(ph, pa) === outcome(ah, aa)) return 1;
+  return 0;
+}
+
+export default function MatchExtras({ matchId, home, away, kickoffISO, scheduled, finished, actualHome, actualAway }: Props) {
   const target = new Date(kickoffISO).getTime();
   const [countdown, setCountdown] = useState<ReturnType<typeof diff>>(null);
   const [homePred, setHomePred] = useState('');
   const [awayPred, setAwayPred] = useState('');
   const [saved, setSaved] = useState(false);
+  const [hasPred, setHasPred] = useState(false);
 
   useEffect(() => {
     if (!scheduled) return;
@@ -42,6 +56,7 @@ export default function MatchExtras({ matchId, home, away, kickoffISO, scheduled
       setHomePred(String(p.home));
       setAwayPred(String(p.away));
       setSaved(true);
+      setHasPred(true);
     }
   }, [matchId]);
 
@@ -49,6 +64,22 @@ export default function MatchExtras({ matchId, home, away, kickoffISO, scheduled
     if (homePred === '' || awayPred === '') return;
     localStorage.setItem(`pred:${matchId}`, JSON.stringify({ home: Number(homePred), away: Number(awayPred) }));
     setSaved(true);
+    setHasPred(true);
+  }
+
+  if (finished && hasPred && actualHome !== null && actualAway !== null) {
+    const pts = scorePrediction(Number(homePred), Number(awayPred), actualHome, actualAway);
+    const ptsColor = pts === 3 ? 'text-pitch' : pts === 1 ? 'text-gold' : 'text-text-dim';
+    const label = pts === 3 ? 'Skor tepat!' : pts === 1 ? 'Tebakan hasil benar' : 'Meleset';
+    return (
+      <div className="mt-6 card rounded-lg p-5 text-center">
+        <p className="text-xs text-text-dim uppercase tracking-wide mb-2">Prediksi Kamu</p>
+        <p className="score-num text-2xl">
+          {home} <span className="text-accent">{homePred} - {awayPred}</span> {away}
+        </p>
+        <p className={`mt-2 font-display font-bold text-lg ${ptsColor}`}>+{pts} poin {'\u00b7'} {label}</p>
+      </div>
+    );
   }
 
   if (!scheduled) return null;
@@ -90,7 +121,7 @@ export default function MatchExtras({ matchId, home, away, kickoffISO, scheduled
           disabled={homePred === '' || awayPred === ''}>
           {saved ? 'Tersimpan \u2713' : 'Simpan Prediksi'}
         </button>
-        <p className="text-[10px] text-text-dim text-center mt-2">Disimpan di browser kamu</p>
+        <p className="text-[10px] text-text-dim text-center mt-2">Skor pas +3 poin {'\u00b7'} tebak hasil benar +1</p>
       </div>
     </div>
   );
