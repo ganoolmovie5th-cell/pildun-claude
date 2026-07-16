@@ -65,7 +65,7 @@ export default function BracketView() {
                   ? stageMatches.map((m) => (
                       <div key={m.id} className="flex items-center">
                         <MatchCard match={m} />
-                        <span className="hidden lg:block w-6 h-px bg-line" />
+                        <span className="hidden lg:block w-6 h-0.5 bg-accent shadow-[0_0_8px_var(--color-accent)]" />
                       </div>
                     ))
                   : chunk2(stageMatches).map((pair, i) => (
@@ -74,10 +74,10 @@ export default function BracketView() {
                         <div className="flex-1 flex flex-col justify-around">
                           {pair.map((m) => <MatchCard key={m.id} match={m} />)}
                         </div>
-                        {/* connector: vertical join + horizontal keluar */}
+                        {/* connector: vertical join + horizontal keluar, menyala */}
                         <div className="relative w-6 hidden lg:block shrink-0">
-                          <span className="absolute left-0 top-1/4 bottom-1/4 w-px bg-line" />
-                          <span className="absolute left-0 right-0 top-1/2 h-px bg-line" />
+                          <span className="absolute left-0 top-1/4 bottom-1/4 w-0.5 bg-accent shadow-[0_0_8px_var(--color-accent)]" />
+                          <span className="absolute left-0 right-0 top-1/2 h-0.5 bg-accent shadow-[0_0_8px_var(--color-accent)]" />
                         </div>
                       </div>
                     ))}
