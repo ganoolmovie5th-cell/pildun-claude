@@ -1,6 +1,6 @@
 // AUTO-GENERATED oleh scripts/fetch-data.mjs — football-data.org (FIFA World Cup 2026)
 // Jangan edit manual. Jalankan ulang script untuk update: node scripts/fetch-data.mjs
-// Terakhir digenerate: 2026-07-15T13:41:19.071Z
+// Terakhir digenerate: 2026-07-16T06:19:05.882Z
 
 export type Stage = 'group' | 'round32' | 'round16' | 'quarter' | 'semi' | 'third-place' | 'final';
 export type MatchStatus = 'scheduled' | 'live' | 'finished';
@@ -196,12 +196,14 @@ export const matches: Match[] = [
   { id: '537385', stage: 'quarter', group: undefined, home: 'NOR', away: 'ENG', homeScore: 1, awayScore: 2, date: '2026-07-11', time: '21:00', status: 'finished' },
   { id: '537386', stage: 'quarter', group: undefined, home: 'ARG', away: 'SUI', homeScore: 3, awayScore: 1, date: '2026-07-12', time: '01:00', status: 'finished' },
   { id: '537387', stage: 'semi', group: undefined, home: 'FRA', away: 'ESP', homeScore: 0, awayScore: 2, date: '2026-07-14', time: '19:00', status: 'finished' },
-  { id: '537388', stage: 'semi', group: undefined, home: 'ENG', away: 'ARG', homeScore: null, awayScore: null, date: '2026-07-15', time: '19:00', status: 'scheduled' },
+  { id: '537388', stage: 'semi', group: undefined, home: 'ENG', away: 'ARG', homeScore: 1, awayScore: 2, date: '2026-07-15', time: '19:00', status: 'finished' },
+  { id: '537389', stage: 'third-place', group: undefined, home: 'FRA', away: 'ENG', homeScore: null, awayScore: null, date: '2026-07-18', time: '21:00', status: 'scheduled' },
+  { id: '537390', stage: 'final', group: undefined, home: 'ESP', away: 'ARG', homeScore: null, awayScore: null, date: '2026-07-19', time: '19:00', status: 'scheduled' },
 ];
 
 export const players: Player[] = [
   { name: 'Kylian Mbappé', team: 'FRA', goals: 8, assists: 2, penalties: 1 },
-  { name: 'Lionel Messi', team: 'ARG', goals: 8, assists: 2, penalties: 0 },
+  { name: 'Lionel Messi', team: 'ARG', goals: 8, assists: 4, penalties: 0 },
   { name: 'Erling Haaland', team: 'NOR', goals: 7, assists: 0, penalties: 0 },
   { name: 'Harry Kane', team: 'ENG', goals: 6, assists: 1, penalties: 2 },
   { name: 'Jude Bellingham', team: 'ENG', goals: 6, assists: 1, penalties: 0 },
@@ -224,12 +226,12 @@ export const players: Player[] = [
   { name: 'Cody Gakpo', team: 'NED', goals: 3, assists: 1, penalties: 0 },
   { name: 'Cristiano Ronaldo', team: 'POR', goals: 3, assists: 0, penalties: 1 },
   { name: 'Romelu Lukaku', team: 'BEL', goals: 3, assists: 1, penalties: 0 },
+  { name: 'Lautaro Martínez', team: 'ARG', goals: 3, assists: 1, penalties: 1 },
   { name: 'Charles De Ketelaere', team: 'BEL', goals: 3, assists: 1, penalties: 0 },
   { name: 'Cyle Larin', team: 'CAN', goals: 2, assists: 0, penalties: 0 },
   { name: 'Breel Embolo', team: 'SUI', goals: 2, assists: 2, penalties: 1 },
   { name: 'Crysencio Summerville', team: 'NED', goals: 2, assists: 2, penalties: 0 },
   { name: 'Daichi Kamada', team: 'JPN', goals: 2, assists: 0, penalties: 0 },
-  { name: 'Amad Diallo', team: 'CIV', goals: 2, assists: 0, penalties: 0 },
 ];
 
 export const GROUPS = [...new Set(teams.map((t) => t.group))].sort();
