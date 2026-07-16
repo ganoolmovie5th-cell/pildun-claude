@@ -1,5 +1,6 @@
 import { Stage, getMatchesByStage, getTeamByCode, getChampion, STAGE_LABELS, Match } from '@/lib/data';
 import Crest from './Crest';
+import Countdown from './Countdown';
 
 const ROUNDS: Stage[] = ['round32', 'round16', 'quarter', 'semi', 'final'];
 
@@ -43,6 +44,8 @@ function chunk2<T>(arr: T[]): T[][] {
 
 export default function BracketView() {
   const champion = getChampion();
+  const final = getMatchesByStage('final')[0];
+  const finalKickoff = final ? `${final.date}T${final.time}:00Z` : null;
 
   return (
     <div className="overflow-x-auto pb-4">
@@ -103,6 +106,7 @@ export default function BracketView() {
               <div className="card rounded-lg border-dashed border-line/70 w-48 shrink-0 p-5 text-center">
                 <span className="text-2xl block mb-2 opacity-40">{'\u{1F3C6}'}</span>
                 <p className="text-xs text-text-dim">Menanti hasil final</p>
+                {finalKickoff && <Countdown targetISO={finalKickoff} />}
               </div>
             )}
           </div>
