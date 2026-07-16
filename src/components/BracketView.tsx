@@ -30,13 +30,23 @@ function BracketMatch({ match }: { match: Match }) {
   const awayWin = decided && as > hs;
 
   return (
-    <div className="relative flex items-center">
-      <div className={`card rounded-lg overflow-hidden w-56 shrink-0 ${decided ? '' : 'border-dashed border-line/70'}`}>
-        <Row crest={home.crest} name={home.name} score={hs} win={homeWin} decided={decided} />
-        <div className="h-px bg-line/70" />
-        <Row crest={away.crest} name={away.name} score={as} win={awayWin} decided={decided} />
-      </div>
-      <span className="hidden lg:block w-6 h-px bg-line shrink-0" />
+    <div className={`card rounded-lg overflow-hidden w-56 ${decided ? '' : 'border-dashed border-line/70'}`}>
+      <Row crest={home.crest} name={home.name} score={hs} win={homeWin} decided={decided} />
+      <div className="h-px bg-line/70" />
+      <Row crest={away.crest} name={away.name} score={as} win={awayWin} decided={decided} />
+    </div>
+  );
+}
+
+// Kolom penghubung: N kurung "⊐" (border) yang menyatukan tiap pasangan match ke babak berikutnya.
+function Connectors({ count }: { count: number }) {
+  return (
+    <div className="hidden lg:flex flex-col justify-around w-6 shrink-0">
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="flex-1 flex items-center">
+          <div className="w-full h-1/2 border-r border-t border-b border-line rounded-r" />
+        </div>
+      ))}
     </div>
   );
 }
@@ -46,25 +56,42 @@ export default function BracketView() {
 
   return (
     <div className="overflow-x-auto pb-4">
-      <div className="flex gap-3 min-w-max items-stretch">
-        {ROUNDS.map((stage) => {
+      <div className="flex min-w-max items-stretch">
+        {ROUNDS.map((stage, idx) => {
           const stageMatches = getMatchesByStage(stage);
+          const next = ROUNDS[idx + 1];
+          const nextCount = next ? getMatchesByStage(next).length : 1;
           return (
-            <div key={stage} className="flex flex-col">
-              <div className="flex items-center gap-2 justify-center mb-4 px-2">
-                <span className="w-1 h-4 accent-bar rounded-full" />
-                <p className="text-[11px] uppercase tracking-wider text-text-dim font-bold whitespace-nowrap">
-                  {STAGE_LABELS[stage]}
-                </p>
+            <div key={stage} className="flex items-stretch">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2 justify-center mb-4 px-2">
+                  <span className="w-1 h-4 accent-bar rounded-full" />
+                  <p className="text-[11px] uppercase tracking-wider text-text-dim font-bold whitespace-nowrap">
+                    {STAGE_LABELS[stage]}
+                  </p>
+                </div>
+                <div className="flex flex-col justify-around flex-1 py-1">
+                  {stageMatches.map((match) => (
+                    <div key={match.id} className="py-1.5 flex items-center">
+                      <BracketMatch match={match} />
+                      <span className="hidden lg:block w-3 h-px bg-line shrink-0" />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col justify-around gap-3 flex-1">
-                {stageMatches.map((match) => <BracketMatch key={match.id} match={match} />)}
-              </div>
+              {/* connector: jumlah = match babak berikutnya */}
+              {next && (
+                <div className="flex flex-col">
+                  <div className="mb-4 h-[1.75rem]" />
+                  <Connectors count={nextCount} />
+                </div>
+              )}
             </div>
           );
         })}
 
-        <div className="flex flex-col">
+        {/* Kolom Juara */}
+        <div className="flex flex-col pl-3">
           <div className="flex items-center gap-2 justify-center mb-4 px-2">
             <span className="w-1 h-4 rounded-full" style={{ background: 'var(--color-gold)' }} />
             <p className="text-[11px] uppercase tracking-wider font-bold whitespace-nowrap" style={{ color: 'var(--color-gold)' }}>Juara</p>
