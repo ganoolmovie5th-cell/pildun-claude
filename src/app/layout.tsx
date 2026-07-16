@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   },
   description: 'Hasil lengkap Piala Dunia FIFA 2026 (USA, Meksiko, Kanada). Klasemen fase grup, bracket knockout, jadwal 104 pertandingan, statistik pemain, dan profil 48 tim.',
   keywords: ['piala dunia 2026', 'world cup 2026', 'hasil piala dunia', 'klasemen', 'bracket', 'jadwal', 'top skor'],
+  verification: {
+    google: 'yaqjNh3gCWoDtjAOAiCYg44KmZ_EK0ahthsN5YrowHU',
+  },
   openGraph: {
     title: 'Piala Dunia 2026 - Hasil Terlengkap',
     description: 'Hasil, klasemen, bracket, dan statistik lengkap Piala Dunia FIFA 2026.',
