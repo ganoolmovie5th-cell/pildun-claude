@@ -19,36 +19,26 @@ function Row({ crest, name, score, win, decided }: { crest: string; name: string
   );
 }
 
-function BracketMatch({ match }: { match: Match }) {
+function MatchCard({ match }: { match: Match }) {
   const home = getTeamByCode(match.home);
   const away = getTeamByCode(match.away);
   if (!home || !away) return null;
   const hs = match.homeScore;
   const as = match.awayScore;
   const decided = hs !== null && as !== null;
-  const homeWin = decided && hs > as;
-  const awayWin = decided && as > hs;
-
   return (
     <div className={`card rounded-lg overflow-hidden w-56 ${decided ? '' : 'border-dashed border-line/70'}`}>
-      <Row crest={home.crest} name={home.name} score={hs} win={homeWin} decided={decided} />
+      <Row crest={home.crest} name={home.name} score={hs} win={decided && hs > as} decided={decided} />
       <div className="h-px bg-line/70" />
-      <Row crest={away.crest} name={away.name} score={as} win={awayWin} decided={decided} />
+      <Row crest={away.crest} name={away.name} score={as} win={decided && as > hs} decided={decided} />
     </div>
   );
 }
 
-// Kolom penghubung: N kurung "⊐" (border) yang menyatukan tiap pasangan match ke babak berikutnya.
-function Connectors({ count }: { count: number }) {
-  return (
-    <div className="hidden lg:flex flex-col justify-around w-6 shrink-0">
-      {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="flex-1 flex items-center">
-          <div className="w-full h-1/2 border-r border-t border-b border-line rounded-r" />
-        </div>
-      ))}
-    </div>
-  );
+function chunk2<T>(arr: T[]): T[][] {
+  const out: T[][] = [];
+  for (let i = 0; i < arr.length; i += 2) out.push(arr.slice(i, i + 2));
+  return out;
 }
 
 export default function BracketView() {
@@ -59,40 +49,46 @@ export default function BracketView() {
       <div className="flex min-w-max items-stretch">
         {ROUNDS.map((stage, idx) => {
           const stageMatches = getMatchesByStage(stage);
-          const next = ROUNDS[idx + 1];
-          const nextCount = next ? getMatchesByStage(next).length : 1;
+          const isFinal = idx === ROUNDS.length - 1;
+
           return (
-            <div key={stage} className="flex items-stretch">
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2 justify-center mb-4 px-2">
-                  <span className="w-1 h-4 accent-bar rounded-full" />
-                  <p className="text-[11px] uppercase tracking-wider text-text-dim font-bold whitespace-nowrap">
-                    {STAGE_LABELS[stage]}
-                  </p>
-                </div>
-                <div className="flex flex-col justify-around flex-1 py-1">
-                  {stageMatches.map((match) => (
-                    <div key={match.id} className="py-1.5 flex items-center">
-                      <BracketMatch match={match} />
-                      <span className="hidden lg:block w-3 h-px bg-line shrink-0" />
-                    </div>
-                  ))}
-                </div>
+            <div key={stage} className="flex flex-col">
+              <div className="flex items-center gap-2 justify-center mb-4 px-2 h-6">
+                <span className="w-1 h-4 accent-bar rounded-full" />
+                <p className="text-[11px] uppercase tracking-wider text-text-dim font-bold whitespace-nowrap">
+                  {STAGE_LABELS[stage]}
+                </p>
               </div>
-              {/* connector: jumlah = match babak berikutnya */}
-              {next && (
-                <div className="flex flex-col">
-                  <div className="mb-4 h-[1.75rem]" />
-                  <Connectors count={nextCount} />
-                </div>
-              )}
+
+              <div className="flex flex-col justify-around flex-1">
+                {isFinal
+                  ? stageMatches.map((m) => (
+                      <div key={m.id} className="flex items-center">
+                        <MatchCard match={m} />
+                        <span className="hidden lg:block w-6 h-px bg-line" />
+                      </div>
+                    ))
+                  : chunk2(stageMatches).map((pair, i) => (
+                      <div key={i} className="flex-1 flex items-stretch">
+                        {/* dua match, terisi 25% & 75% slot */}
+                        <div className="flex-1 flex flex-col justify-around">
+                          {pair.map((m) => <MatchCard key={m.id} match={m} />)}
+                        </div>
+                        {/* connector: vertical join + horizontal keluar */}
+                        <div className="relative w-6 hidden lg:block shrink-0">
+                          <span className="absolute left-0 top-1/4 bottom-1/4 w-px bg-line" />
+                          <span className="absolute left-0 right-0 top-1/2 h-px bg-line" />
+                        </div>
+                      </div>
+                    ))}
+              </div>
             </div>
           );
         })}
 
         {/* Kolom Juara */}
-        <div className="flex flex-col pl-3">
-          <div className="flex items-center gap-2 justify-center mb-4 px-2">
+        <div className="flex flex-col pl-2">
+          <div className="flex items-center gap-2 justify-center mb-4 px-2 h-6">
             <span className="w-1 h-4 rounded-full" style={{ background: 'var(--color-gold)' }} />
             <p className="text-[11px] uppercase tracking-wider font-bold whitespace-nowrap" style={{ color: 'var(--color-gold)' }}>Juara</p>
           </div>
