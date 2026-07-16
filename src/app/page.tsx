@@ -3,6 +3,7 @@ import { getChampion, getRecentResults, getTopScorers, matches, getMatchesByStag
 import MatchCard from '@/components/MatchCard';
 import StatLeaders from '@/components/StatLeaders';
 import Crest from '@/components/Crest';
+import Confetti from '@/components/Confetti';
 
 export default function HomePage() {
   const champion = getChampion();
@@ -13,6 +14,7 @@ export default function HomePage() {
 
   return (
     <div>
+      {champion && <Confetti />}
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-line">
         <div

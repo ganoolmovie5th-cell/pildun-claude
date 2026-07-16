@@ -89,3 +89,37 @@ h1, h2, h3, .font-display {
 ::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
 ::selection { background: color-mix(in srgb, var(--color-accent) 40%, transparent); }
+
+/* Skeleton loader */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--color-surface) 25%, var(--color-surface-2) 50%, var(--color-surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* Host-nation accent bar (USA biru, Meksiko hijau, Kanada merah) */
+.host-bar {
+  background: linear-gradient(90deg, #0A3161 0%, #0A3161 33%, #006847 33%, #006847 66%, #E4002B 66%, #E4002B 100%);
+}
+
+/* Confetti (dipakai halaman juara) */
+@keyframes confettiFall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  width: 8px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 60;
+  animation: confettiFall linear forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .confetti-piece, .skeleton { animation: none; }
+}

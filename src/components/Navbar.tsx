@@ -13,6 +13,7 @@ const links = [
   { href: '/road', label: 'Jalur' },
   { href: '/teams', label: 'Tim' },
   { href: '/stats', label: 'Statistik' },
+  { href: '/prediksi', label: 'Prediksi' },
 ];
 
 export default function Navbar({ onSearchOpen }: { onSearchOpen?: () => void }) {

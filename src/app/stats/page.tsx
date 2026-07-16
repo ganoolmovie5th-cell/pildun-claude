@@ -3,9 +3,14 @@
 import { useState, useMemo } from 'react';
 import { players, getTeamByCode, GROUPS } from '@/lib/data';
 import StatLeaders from '@/components/StatLeaders';
+import Crest from '@/components/Crest';
 
 export default function StatsPage() {
   const [group, setGroup] = useState<string>('');
+
+  // Golden Boot: gol terbanyak. Golden Ball: gol+assist tertinggi (heuristik pemain terbaik).
+  const goldenBoot = useMemo(() => [...players].sort((a, b) => b.goals - a.goals || b.assists - a.assists)[0], []);
+  const goldenBall = useMemo(() => [...players].sort((a, b) => (b.goals + b.assists) - (a.goals + a.assists) || b.goals - a.goals)[0], []);
 
   const filtered = useMemo(() => {
     if (!group) return players;
@@ -21,6 +26,12 @@ export default function StatsPage() {
       <div className="mb-6">
         <h1 className="font-display font-bold text-3xl sm:text-4xl uppercase mb-2">Statistik Pemain</h1>
         <p className="text-text-muted">Pencetak gol, assist, dan penalti terbanyak sepanjang turnamen.</p>
+      </div>
+
+      {/* Golden Boot & Golden Ball */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        <Award label="Golden Boot" sub="Top skor" emoji={'\u{1F45F}'} player={goldenBoot} value={`${goldenBoot.goals} gol`} />
+        <Award label="Golden Ball" sub="Pemain terbaik" emoji={'\u26BD'} player={goldenBall} value={`${goldenBall.goals}G ${goldenBall.assists}A`} />
       </div>
 
       <div className="flex flex-wrap gap-2 mb-8">
@@ -49,6 +60,24 @@ export default function StatsPage() {
           <StatLeaders title="Gol Penalti" players={penalties} metric="penalties" />
         </div>
       )}
+    </div>
+  );
+}
+
+function Award({ label, sub, emoji, player, value }: { label: string; sub: string; emoji: string; player: typeof players[number]; value: string }) {
+  const team = getTeamByCode(player.team);
+  return (
+    <div className="card rounded-lg p-5 flex items-center gap-4" style={{ borderColor: 'var(--color-gold)' }}>
+      <span className="text-3xl">{emoji}</span>
+      <div className="flex-1 min-w-0">
+        <p className="text-[11px] uppercase tracking-wider font-bold" style={{ color: 'var(--color-gold)' }}>{label}</p>
+        <p className="font-display font-bold text-lg truncate">{player.name}</p>
+        <p className="text-xs text-text-dim flex items-center gap-1.5">
+          {team && <Crest src={team.crest} alt={team.name} size={14} />}
+          {team?.name} {'\u00b7'} {sub}
+        </p>
+      </div>
+      <span className="score-num text-xl tabular-nums shrink-0" style={{ color: 'var(--color-gold)' }}>{value}</span>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { teams, matches } from '@/lib/data';
 const BASE = 'https://piala-dunia.web.id';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ['', '/matches', '/groups', '/bracket', '/teams', '/stats', '/road', '/timeline'].map((p) => ({
+  const staticRoutes = ['', '/matches', '/groups', '/bracket', '/teams', '/stats', '/road', '/timeline', '/prediksi'].map((p) => ({
     url: `${BASE}${p}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,

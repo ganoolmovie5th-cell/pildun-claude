@@ -18,7 +18,8 @@ Website hasil Piala Dunia FIFA 2026 (USA-Meksiko-Kanada) terlengkap. Data dari A
 - Update data: `FOOTBALL_DATA_TOKEN=xxx node scripts/fetch-data.mjs`
 - Token API JANGAN di-commit — di `.env.local` (gitignored)
 - UI dalam Bahasa Indonesia
-- Dark mode terkunci (broadcast aesthetic) — tidak ada light mode
+- Dark default; light mode via toggle Navbar (`localStorage.theme` → `[data-theme]`)
+- Jam match ditampilkan WIB (Asia/Jakarta) via `toWIB()` di `lib/time.ts`
 - Push langsung ke `main`
 - Setiap commit update README.md + steering file
 - Klasemen grup TIDAK di-hardcode — dihitung otomatis dari `matches`
@@ -68,7 +69,12 @@ Gaya broadcast TV olahraga. Dark base, satu aksen merah.
 | `/road` | Jalur ke final tim yang masih bertahan | Static |
 | `/teams` | Grid 48 tim, filter per grup | Client (filter) |
 | `/teams/[code]` | Detail tim: header, statistik grup, pemain, jadwal | SSG (48 halaman) |
-| `/stats` | Top skor, assist, penalti (bar chart, filter per grup) | Client (filter) |
+| `/stats` | Top skor, assist, penalti (bar chart, filter per grup) + Golden Boot & Golden Ball | Client (filter) |
+| `/prediksi` | Leaderboard prediksi: total poin dari localStorage `pred:{id}` | Client |
+
+- Confetti muncul di beranda saat `getChampion()` ada (`Confetti.tsx`, auto-hilang 6 dtk)
+- Skeleton loader (`.skeleton`) untuk state loading client-side (mis. `/prediksi`)
+- Strip aksen tuan rumah (`.host-bar`, USA biru / Meksiko hijau / Kanada merah) di Footer
 
 - Pencarian tim (Cmd/Ctrl+K) via `SearchModal` di-mount lewat `ClientShell`
 - Dark/Light toggle di Navbar → `[data-theme]` di globals.css, tersimpan `localStorage.theme`

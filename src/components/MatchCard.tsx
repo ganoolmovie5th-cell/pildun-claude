@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Match, getTeamByCode, STAGE_LABELS, formatDateShort } from '@/lib/data';
+import { toWIB } from '@/lib/time';
 import Crest from './Crest';
 
 export default function MatchCard({ match }: { match: Match }) {
@@ -35,7 +36,7 @@ export default function MatchCard({ match }: { match: Match }) {
             ? <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold text-accent tracking-wide">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />Live
               </span>
-            : <span className="text-[10px] uppercase font-bold text-gold tracking-wide tnum">{match.time} UTC</span>}
+            : <span className="text-[10px] uppercase font-bold text-gold tracking-wide tnum">{toWIB(match.date, match.time)} WIB</span>}
         </div>
       </div>
     </Link>

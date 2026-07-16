@@ -20,13 +20,18 @@ Website hasil Piala Dunia FIFA 2026 (USA, Meksiko, Kanada) terlengkap. Klasemen,
 - 📊 **Klasemen Grup** — 12 grup, klasemen dihitung otomatis dari hasil
 - 🏆 **Bracket** — Knockout 32 besar hingga final
 - 🛣️ **Jalur ke Final** — Perjalanan knockout tiap tim yang masih bertahan
-- 🗓️ **Timeline** — Kronologi pertandingan hari demi hari
+- 🗓️ **Timeline** — Kronologi pertandingan hari demi hari (rekap harian)
 - 🌍 **Tim** — 48 negara, filter per grup + halaman detail
-- 📈 **Statistik** — Top skor, assist, penalti (bar chart, filter per grup)
+- 📈 **Statistik** — Top skor, assist, penalti (bar chart, filter per grup) + Golden Boot & Golden Ball
 - 🔮 **Prediksi + Poin** — Tebak skor, dapat poin (skor pas +3, tebak hasil +1)
+- 🏅 **Leaderboard Prediksi** — Rekap total poin prediksi kamu di `/prediksi`
+- 🕐 **Jam WIB** — Jadwal match ditampilkan waktu lokal (Asia/Jakarta)
+- 🎉 **Confetti** — Muncul saat juara sudah ditentukan
 - 🔍 **Pencarian tim** — Cmd/Ctrl+K
 - 🌗 **Dark/Light** — Toggle tema, tersimpan di localStorage
+- 🎨 **Aksen tuan rumah** — Strip warna USA/Meksiko/Kanada
 - 🔴 **Badge LIVE** — indikator pertandingan berlangsung
+- ✨ **Skeleton loader** — placeholder saat data client-side dimuat
 - 🔍 **SEO** — sitemap.xml + robots.txt
 - 🔄 **Auto-refresh** — GitHub Actions sinkron data tiap 3 jam
 

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { matches, getTeamByCode, STAGE_LABELS, formatDateShort } from '@/lib/data';
+import { toWIB } from '@/lib/time';
 import Crest from '@/components/Crest';
 import MatchExtras from '@/components/MatchExtras';
 
@@ -70,7 +71,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
                 <span className={finished && match.awayScore! > match.homeScore! ? 'text-accent' : 'text-text'}>{match.awayScore}</span>
               </div>
             ) : (
-              <div className="score-num text-3xl text-text-dim tabular-nums">{match.time}<span className="text-sm block text-text-dim">UTC</span></div>
+              <div className="score-num text-3xl text-text-dim tabular-nums">{toWIB(match.date, match.time)}<span className="text-sm block text-text-dim">WIB</span></div>
             )}
             <span className={`inline-block mt-2 text-[10px] uppercase font-bold tracking-wide ${
               finished ? 'text-pitch' : live ? 'text-accent' : 'text-gold'
@@ -87,7 +88,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
 
         <div className="px-6 py-4 border-t border-line text-center">
           <p className="text-sm text-text-muted">{dateFull}</p>
-          <p className="text-xs text-text-dim mt-0.5">Kickoff {match.time} UTC</p>
+          <p className="text-xs text-text-dim mt-0.5">Kickoff {toWIB(match.date, match.time)} WIB</p>
         </div>
       </div>
 
