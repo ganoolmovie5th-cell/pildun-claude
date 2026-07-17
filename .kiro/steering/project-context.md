@@ -149,7 +149,7 @@ Script fetch `/matches?season=2026` + `/scorers`, map stage (GROUP_STAGE→group
 
 ## Favicon
 
-`src/app/icon.svg` — trofi emas + bintang merah, base gelap. Next.js auto-serve sebagai `/icon.svg`.
+`src/app/icon.jpeg` — logo resmi Piala Dunia 2026. Next.js auto-serve sebagai favicon.
 
 ---
 
