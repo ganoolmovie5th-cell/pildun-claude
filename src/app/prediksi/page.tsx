@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { matches, getTeamByCode } from '@/lib/data';
+import ChampionPicker from '@/components/ChampionPicker';
 
 interface Row {
   matchId: string;
@@ -52,6 +53,8 @@ export default function PrediksiPage() {
         <h1 className="font-display font-bold text-3xl sm:text-4xl uppercase mb-2">Poin Prediksi Kamu</h1>
         <p className="text-text-muted">Prediksi disimpan di browser ini. Skor pas +3, tebak hasil benar +1.</p>
       </div>
+
+      <div className="mb-8"><ChampionPicker /></div>
 
       {!loaded ? (
         <div className="grid grid-cols-3 gap-3 mb-8">

@@ -26,6 +26,7 @@ export default function Footer() {
               <span className="text-text-dim uppercase text-xs tracking-wide font-semibold">Data</span>
               <Link href="/teams" className="text-text-muted hover:text-text">48 Tim</Link>
               <Link href="/stats" className="text-text-muted hover:text-text">Top Skor</Link>
+              <Link href="/stadion" className="text-text-muted hover:text-text">Stadion</Link>
             </div>
           </div>
         </div>

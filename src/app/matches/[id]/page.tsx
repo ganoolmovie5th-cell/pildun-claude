@@ -96,7 +96,27 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
 
       {h2h.length > 0 && (
         <div className="mt-6 card rounded-lg p-5">
-          <p className="text-xs text-text-dim uppercase tracking-wide mb-3">Pertemuan Lain di Turnamen Ini</p>
+          <p className="text-xs text-text-dim uppercase tracking-wide mb-3">Head-to-Head di Turnamen Ini</p>
+          {(() => {
+            let hWin = 0, aWin = 0, draw = 0, hGoals = 0, aGoals = 0;
+            for (const m of h2h) {
+              const homeIsMatchHome = m.home === match.home;
+              const gsHome = homeIsMatchHome ? m.homeScore! : m.awayScore!;
+              const gsAway = homeIsMatchHome ? m.awayScore! : m.homeScore!;
+              hGoals += gsHome; aGoals += gsAway;
+              if (gsHome > gsAway) hWin++; else if (gsHome < gsAway) aWin++; else draw++;
+            }
+            return (
+              <div className="grid grid-cols-3 gap-2 mb-4 text-center">
+                <Agg value={hWin} label={`${home.name} menang`} color="text-accent" />
+                <Agg value={draw} label="Seri" color="text-gold" />
+                <Agg value={aWin} label={`${away.name} menang`} color="text-accent" />
+                <div className="col-span-3 text-xs text-text-dim uppercase tracking-wide pt-1">
+                  {h2h.length} pertemuan {'\u00b7'} gol {hGoals}{'\u2013'}{aGoals}
+                </div>
+              </div>
+            );
+          })()}
           <ul className="space-y-2">
             {h2h.map((m) => {
               const h = getTeamByCode(m.home);
@@ -113,6 +133,15 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
           </ul>
         </div>
       )}
+    </div>
+  );
+}
+
+function Agg({ value, label, color }: { value: number; label: string; color: string }) {
+  return (
+    <div className="card rounded-lg p-3">
+      <p className={`score-num text-2xl ${color}`}>{value}</p>
+      <p className="text-[10px] uppercase tracking-wide text-text-dim mt-0.5">{label}</p>
     </div>
   );
 }

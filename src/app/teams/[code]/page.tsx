@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { teams, getTeamByCode, getMatchesByTeam, computeStandings, players } from '@/lib/data';
 import MatchCard from '@/components/MatchCard';
 import Crest from '@/components/Crest';
+import MomentumChart from '@/components/MomentumChart';
 
 export function generateStaticParams() {
   return teams.map((t) => ({ code: t.code }));
@@ -71,6 +72,11 @@ export default async function TeamDetailPage({ params }: { params: Promise<{ cod
           </div>
         </div>
       )}
+
+      <h2 className="font-display font-bold text-xl uppercase mb-3">Momentum</h2>
+      <div className="mb-8">
+        <MomentumChart teamCode={team.code} matches={teamMatches} />
+      </div>
 
       <h2 className="font-display font-bold text-xl uppercase mb-3">Jadwal & Hasil</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

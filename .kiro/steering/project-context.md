@@ -70,7 +70,12 @@ Gaya broadcast TV olahraga. Dark base, satu aksen merah.
 | `/teams` | Grid 48 tim, filter per grup | Client (filter) |
 | `/teams/[code]` | Detail tim: header, statistik grup, pemain, jadwal | SSG (48 halaman) |
 | `/stats` | Top skor, assist, penalti (bar chart, filter per grup) + Golden Boot & Golden Ball | Client (filter) |
-| `/prediksi` | Leaderboard prediksi: total poin dari localStorage `pred:{id}` | Client |
+| `/prediksi` | Leaderboard prediksi: total poin dari localStorage `pred:{id}` + tebak juara (`champPick`) | Client |
+| `/stadion` | 16 venue resmi (hardcoded, data API tak punya venue) | Static |
+
+- Grafik momentum (`MomentumChart`): tren goal-diff kumulatif tim (SVG) di `/teams/[code]`
+- Head-to-head agregat (menang/seri/gol) antar 2 tim di `/matches/[id]`
+- Klasemen live-refresh (`LiveRefresh`): `router.refresh()` tiap 60s di `/groups`
 
 - Confetti muncul di beranda saat `getChampion()` ada (`Confetti.tsx`, auto-hilang 6 dtk)
 - Skeleton loader (`.skeleton`) untuk state loading client-side (mis. `/prediksi`)

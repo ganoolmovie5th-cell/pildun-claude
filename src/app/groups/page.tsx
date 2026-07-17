@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { GROUPS } from '@/lib/data';
 import GroupTable from '@/components/GroupTable';
+import LiveRefresh from '@/components/LiveRefresh';
 
 export const metadata: Metadata = {
   title: 'Klasemen Fase Grup',
@@ -15,6 +16,7 @@ export default function GroupsPage() {
         <p className="text-text-muted">
           12 grup, 4 tim per grup. Dua tim teratas tiap grup <span className="text-pitch font-medium">(hijau)</span> otomatis lolos, ditambah 8 peringkat-3 terbaik.
         </p>
+        <div className="mt-3"><LiveRefresh /></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
