@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between gap-6">
           <div>
             <div className="flex items-center gap-2.5 mb-2">
-              <span className="w-1.5 h-6 accent-bar rounded-full" />
+              <Image src="/logo.jpeg" alt="Piala Dunia 2026" width={36} height={24} className="h-7 w-auto rounded" />
               <span className="font-display font-bold text-base">PIALA DUNIA <span className="text-accent">2026</span></span>
             </div>
             <p className="text-sm text-text-muted max-w-sm">

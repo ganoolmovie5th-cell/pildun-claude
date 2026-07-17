@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -51,7 +52,8 @@ export default function Navbar({ onSearchOpen }: { onSearchOpen?: () => void }) 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <span className="w-1.5 h-7 accent-bar rounded-full" />
+            <Image src="/logo.jpeg" alt="Piala Dunia 2026" width={44} height={29} priority
+              className="h-8 w-auto rounded" />
             <span className="font-display font-bold text-lg leading-none tracking-tight">
               PIALA DUNIA <span className="text-accent">2026</span>
             </span>
