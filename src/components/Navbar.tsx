@@ -13,6 +13,7 @@ const links = [
   { href: '/bracket', label: 'Bracket' },
   { href: '/road', label: 'Jalur' },
   { href: '/teams', label: 'Tim' },
+  { href: '/compare', label: 'Banding' },
   { href: '/stats', label: 'Statistik' },
   { href: '/prediksi', label: 'Prediksi' },
 ];

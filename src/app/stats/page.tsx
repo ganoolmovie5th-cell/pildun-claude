@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { players, getTeamByCode, GROUPS } from '@/lib/data';
 import StatLeaders from '@/components/StatLeaders';
+import GoldenBootRace from '@/components/GoldenBootRace';
 import Crest from '@/components/Crest';
 
 export default function StatsPage() {
@@ -33,6 +34,8 @@ export default function StatsPage() {
         <Award label="Golden Boot" sub="Top skor" emoji={'\u{1F45F}'} player={goldenBoot} value={`${goldenBoot.goals} gol`} />
         <Award label="Golden Ball" sub="Pemain terbaik" emoji={'\u26BD'} player={goldenBall} value={`${goldenBall.goals}G ${goldenBall.assists}A`} />
       </div>
+
+      <GoldenBootRace players={players} />
 
       <div className="flex flex-wrap gap-2 mb-8">
         <button onClick={() => setGroup('')}

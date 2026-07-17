@@ -19,7 +19,7 @@ Website hasil Piala Dunia FIFA 2026 (USA-Meksiko-Kanada) terlengkap. Data dari A
 - Token API JANGAN di-commit — di `.env.local` (gitignored)
 - UI dalam Bahasa Indonesia
 - Dark default; light mode via toggle Navbar (`localStorage.theme` → `[data-theme]`)
-- Jam match ditampilkan WIB (Asia/Jakarta) via `toWIB()` di `lib/time.ts`
+- Jam match default WIB (Asia/Jakarta); bisa ganti WITA/WIT/Lokal via filter di `/matches`. Helper `toWIB()` + `formatTime()`/`TIME_ZONES` di `lib/time.ts`
 - Push langsung ke `main`
 - Setiap commit update README.md + steering file
 - Klasemen grup TIDAK di-hardcode — dihitung otomatis dari `matches`
@@ -69,11 +69,15 @@ Gaya broadcast TV olahraga. Dark base, satu aksen merah.
 | `/road` | Jalur ke final tim yang masih bertahan | Static |
 | `/teams` | Grid 48 tim, filter per grup | Client (filter) |
 | `/teams/[code]` | Detail tim: header, statistik grup, pemain, jadwal | SSG (48 halaman) |
-| `/stats` | Top skor, assist, penalti (bar chart, filter per grup) + Golden Boot & Golden Ball | Client (filter) |
+| `/compare` | Bandingkan 2 tim side-by-side (klasemen + kontribusi pemain) | Client |
+| `/stats` | Top skor, assist, penalti (bar chart, filter per grup) + Golden Boot & Golden Ball + balapan Golden Boot | Client (filter) |
 | `/prediksi` | Leaderboard prediksi: total poin dari localStorage `pred:{id}` + tebak juara (`champPick`) | Client |
 | `/stadion` | 16 venue resmi (hardcoded, data API tak punya venue) | Static |
 
 - Grafik momentum (`MomentumChart`): tren goal-diff kumulatif tim (SVG) di `/teams/[code]`
+- Bandingkan tim (`/compare`): pilih 2 tim, adu klasemen (`computeStandings`) + total gol/assist pemain, kolom pemenang di-highlight merah
+- Balapan Golden Boot (`GoldenBootRace`): bar horizontal animasi top 10 skor di `/stats`
+- Filter zona waktu di `/matches`: WIB/WITA/WIT/Lokal via `formatTime()` + `TIME_ZONES` di `lib/time.ts` (default WIB)
 - Head-to-head agregat (menang/seri/gol) antar 2 tim di `/matches/[id]`
 - Klasemen live-refresh (`LiveRefresh`): `router.refresh()` tiap 60s di `/groups`
 

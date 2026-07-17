@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { Match, getTeamByCode, STAGE_LABELS, formatDateShort } from '@/lib/data';
-import { toWIB } from '@/lib/time';
+import { formatTime, TIME_ZONES, TZKey } from '@/lib/time';
 import Crest from './Crest';
 
-export default function MatchCard({ match }: { match: Match }) {
+export default function MatchCard({ match, tz = 'WIB' }: { match: Match; tz?: TZKey }) {
   const home = getTeamByCode(match.home);
   const away = getTeamByCode(match.away);
   if (!home || !away) return null;
@@ -36,7 +36,7 @@ export default function MatchCard({ match }: { match: Match }) {
             ? <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold text-accent tracking-wide">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />Live
               </span>
-            : <span className="text-[10px] uppercase font-bold text-gold tracking-wide tnum">{toWIB(match.date, match.time)} WIB</span>}
+            : <span className="text-[10px] uppercase font-bold text-gold tracking-wide tnum">{formatTime(match.date, match.time, tz)} {TIME_ZONES[tz].label}</span>}
         </div>
       </div>
     </Link>

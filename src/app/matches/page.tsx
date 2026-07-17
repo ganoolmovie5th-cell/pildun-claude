@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { matches } from '@/lib/data';
+import { TIME_ZONES, TZKey } from '@/lib/time';
 import MatchCard from '@/components/MatchCard';
 
 const STAGE_FILTERS: { value: string; label: string }[] = [
@@ -18,6 +19,7 @@ const STAGE_FILTERS: { value: string; label: string }[] = [
 export default function MatchesPage() {
   const [stage, setStage] = useState<string>('');
   const [date, setDate] = useState<string>('');
+  const [tz, setTz] = useState<TZKey>('WIB');
 
   const dates = useMemo(() => [...new Set(matches.map((m) => m.date))].sort(), []);
 
@@ -63,6 +65,17 @@ export default function MatchesPage() {
             </option>
           ))}
         </select>
+
+        <select
+          value={tz}
+          onChange={(e) => setTz(e.target.value as TZKey)}
+          className="card rounded-md px-3 py-1.5 text-sm text-text-muted focus:outline-none focus:ring-2 focus:ring-accent/40"
+          aria-label="Zona waktu"
+        >
+          {(Object.keys(TIME_ZONES) as TZKey[]).map((k) => (
+            <option key={k} value={k}>{TIME_ZONES[k].label}</option>
+          ))}
+        </select>
       </div>
 
       <div className="mb-4 flex items-center gap-3 text-sm text-text-dim tnum">
@@ -75,7 +88,7 @@ export default function MatchesPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((match) => <MatchCard key={match.id} match={match} />)}
+        {filtered.map((match) => <MatchCard key={match.id} match={match} tz={tz} />)}
       </div>
 
       {filtered.length === 0 && (
