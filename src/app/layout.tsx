@@ -28,10 +28,48 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.piala-dunia.web.id/#website',
+      url: 'https://www.piala-dunia.web.id',
+      name: 'Piala Dunia 2026',
+      description:
+        'Hasil, klasemen, bracket, jadwal, dan statistik lengkap Piala Dunia FIFA 2026.',
+      inLanguage: 'id-ID',
+    },
+    {
+      '@type': 'SportsEvent',
+      '@id': 'https://www.piala-dunia.web.id/#event',
+      name: 'Piala Dunia FIFA 2026',
+      description:
+        'Turnamen Piala Dunia FIFA 2026 dengan 48 tim dan 104 pertandingan di Amerika Serikat, Meksiko, dan Kanada.',
+      startDate: '2026-06-11',
+      endDate: '2026-07-19',
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      sport: 'Football',
+      url: 'https://www.piala-dunia.web.id',
+      organizer: { '@type': 'Organization', name: 'FIFA', url: 'https://www.fifa.com' },
+      location: [
+        { '@type': 'Country', name: 'Amerika Serikat' },
+        { '@type': 'Country', name: 'Meksiko' },
+        { '@type': 'Country', name: 'Kanada' },
+      ],
+    },
+  ],
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="id" className={`${oswald.variable} ${barlow.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Script id="gtm" strategy="afterInteractive">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=

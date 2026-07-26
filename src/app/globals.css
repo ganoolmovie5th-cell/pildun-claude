@@ -6,13 +6,13 @@
   --color-surface: #161d2e;
   --color-surface-2: #1e2740;
   --color-line: #253049;
-  --color-accent: #e11d2a;
-  --color-accent-hover: #f43545;
+  --color-accent: #f43545;
+  --color-accent-hover: #ff5c69;
   --color-gold: #f5c518;
   --color-pitch: #16a34a;
   --color-text: #f1f5f9;
   --color-text-muted: #94a3b8;
-  --color-text-dim: #64748b;
+  --color-text-dim: #7d8a9e;
   --font-display: var(--font-oswald), 'Oswald', system-ui, sans-serif;
   --font-body: var(--font-barlow), 'Barlow', system-ui, sans-serif;
 }
@@ -28,7 +28,10 @@ html { scroll-behavior: smooth; }
   --color-line: #d9dde6;
   --color-text: #0f1729;
   --color-text-muted: #475569;
-  --color-text-dim: #7c8aa0;
+  --color-text-dim: #68748a;
+  /* Dark-theme accent (#f43545) only reaches 3.9:1 on white — darken for light theme */
+  --color-accent: #c8102a;
+  --color-accent-hover: #a80d23;
 }
 
 body {
