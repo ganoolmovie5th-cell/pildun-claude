@@ -19,11 +19,12 @@ export default function StatLeaders({ title, players, metric }: { title: string;
           return (
             <li key={`${p.name}-${p.team}`} className="relative flex items-center gap-3 px-4 py-2.5 border-b border-line/50 last:border-0">
               <span className="absolute inset-y-0 left-0 bg-accent/10 pointer-events-none" style={{ width: `${pct}%` }} />
-              <span className={`relative w-5 text-center text-xs font-bold tnum ${i < 3 ? 'text-accent' : 'text-text-dim'}`}>{i + 1}</span>
+              {/* text-dim (#7d8a9e) only hits 4.46:1 over the bg-accent/10 bar — use muted (6.1:1) */}
+              <span className={`relative w-5 text-center text-xs font-bold tnum ${i < 3 ? 'text-accent' : 'text-text-muted'}`}>{i + 1}</span>
               {team && <Crest src={team.crest} alt={team.name} size={18} />}
               <div className="relative min-w-0 flex-1">
                 <p className="text-sm font-medium truncate">{p.name}</p>
-                <p className="text-[11px] text-text-dim">{team?.name}</p>
+                <p className="text-[11px] text-text-muted">{team?.name}</p>
               </div>
               <span className="relative score-num text-xl text-text tabular-nums">{p[metric]}</span>
             </li>

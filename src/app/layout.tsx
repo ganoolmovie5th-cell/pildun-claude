@@ -5,6 +5,7 @@ import './globals.css';
 import ClientShell from '@/components/ClientShell';
 import Footer from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/next';
+import { teams } from '@/lib/data';
 
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-oswald', display: 'swap' });
 const barlow = Barlow({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-barlow', display: 'swap' });
@@ -52,11 +53,36 @@ const jsonLd = {
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       sport: 'Football',
       url: 'https://www.piala-dunia.web.id',
+      image: ['https://www.piala-dunia.web.id/logo.jpeg'],
       organizer: { '@type': 'Organization', name: 'FIFA', url: 'https://www.fifa.com' },
+      // Google Event rich results require performer. For a tournament the
+      // performers are the participating national teams.
+      performer: teams.map((t) => ({ '@type': 'SportsTeam', name: t.name })),
+      offers: {
+        '@type': 'Offer',
+        url: 'https://www.fifa.com/tickets',
+        availability: 'https://schema.org/PreOrder',
+        price: 60,
+        priceCurrency: 'USD',
+        validFrom: '2025-09-10',
+      },
+      // location must carry a postal address or Google reports "missing field address".
       location: [
-        { '@type': 'Country', name: 'Amerika Serikat' },
-        { '@type': 'Country', name: 'Meksiko' },
-        { '@type': 'Country', name: 'Kanada' },
+        {
+          '@type': 'Place',
+          name: 'Amerika Serikat',
+          address: { '@type': 'PostalAddress', addressCountry: 'US' },
+        },
+        {
+          '@type': 'Place',
+          name: 'Meksiko',
+          address: { '@type': 'PostalAddress', addressCountry: 'MX' },
+        },
+        {
+          '@type': 'Place',
+          name: 'Kanada',
+          address: { '@type': 'PostalAddress', addressCountry: 'CA' },
+        },
       ],
     },
   ],
