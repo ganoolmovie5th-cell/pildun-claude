@@ -42,7 +42,7 @@ Website hasil Piala Dunia FIFA 2026 (USA, Meksiko, Kanada) terlengkap. Klasemen,
 - 🔍 **SEO** — sitemap.xml + robots.txt
 - 🔄 **Auto-refresh** — GitHub Actions sinkron data tiap 3 jam
 
-🌐 **Domain:** [piala-dunia.web.id](https://piala-dunia.web.id)
+🌐 **Domain:** [www.piala-dunia.web.id](https://www.piala-dunia.web.id)
 
 ## Format Turnamen
 
