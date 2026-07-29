@@ -58,13 +58,12 @@ const jsonLd = {
       // Google Event rich results require performer. For a tournament the
       // performers are the participating national teams.
       performer: teams.map((t) => ({ '@type': 'SportsTeam', name: t.name })),
+      // No price/validFrom: FIFA has not published 2026 ticket pricing, and a
+      // guessed figure is worse than none. url + availability satisfy Google.
       offers: {
         '@type': 'Offer',
         url: 'https://www.fifa.com/tickets',
         availability: 'https://schema.org/PreOrder',
-        price: 60,
-        priceCurrency: 'USD',
-        validFrom: '2025-09-10',
       },
       // location must carry a postal address or Google reports "missing field address".
       location: [
