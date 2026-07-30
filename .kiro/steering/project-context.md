@@ -194,3 +194,7 @@ npm run build   # harus sukses
 <type>: <deskripsi singkat>
 ```
 Type: `feat` `fix` `refactor` `chore` `docs`
+
+## Dependency Pin (lanjutan)
+
+Blok `overrides` di `package.json` sekarang memuat **dua** entri: `sharp` `^0.35.3` dan `postcss` `^8.5.18`. Keduanya menutup alert Dependabot pada dependency transitif. **Jangan hapus salah satunya.** `next` dipin ke versi eksplisit (bukan range) — kalau menaikkannya, naikkan `eslint-config-next` ke versi yang sama.
