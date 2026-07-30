@@ -122,6 +122,10 @@ Workflow `.github/workflows/refresh-data.yml` fetch data tiap 3 jam & commit oto
 
 Bisa juga dijalankan manual: Actions → "Refresh Data" → Run workflow.
 
+### Security: pin sharp ^0.35.3 (Juli 2026)
+
+`sharp` masuk sebagai optionalDependency dari `next`, ter-hoist ke root `node_modules` pada versi `0.34.5` — kena GHSA-f88m-g3jw-g9cj (vulnerable `< 0.35.0`, patched `0.35.0`). Ditambah blok `overrides` di `package.json` supaya npm memaksa `^0.35.3`. Catatan: di Vercel `next/image` dilayani infrastruktur Image Optimization Vercel, jadi `sharp` tidak ada di request path — ini menutup alert lockfile, bukan exploit aktif. `npm run build` sukses.
+
 ## License
 
 MIT
