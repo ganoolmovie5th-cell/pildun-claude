@@ -63,6 +63,9 @@ const jsonLd = {
         '@type': 'Offer',
         url: 'https://www.fifa.com/tickets',
         availability: 'https://schema.org/PreOrder',
+        price: 0,
+        priceCurrency: 'IDR',
+        validFrom: '2025-01-01',
       },
       // location must carry a postal address or Google reports "missing field address".
       location: [
