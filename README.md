@@ -1,52 +1,33 @@
-# ⚽ Piala Dunia 2026
+# Piala Dunia 2026
 
-Website hasil Piala Dunia FIFA 2026 (USA, Meksiko, Kanada) terlengkap. Klasemen, bracket knockout, 104 pertandingan, dan statistik pemain.
+Website hasil Piala Dunia FIFA 2026 (USA, Meksiko, Kanada) terlengkap. Klasemen, bracket knockout, 104 pertandingan, dan statistik pemain. Data auto-generated dari football-data.org API.
 
-🌐 **Deploy:** Vercel
+**Tech Stack:** Next.js 16 · TypeScript · Tailwind CSS 4 · Vercel
 
-## Tech Stack
+**Live:** [piala-dunia.web.id](https://www.piala-dunia.web.id)
 
-- **Framework:** Next.js 16 (App Router)
-- **Language:** TypeScript (strict)
-- **Styling:** Tailwind CSS 4
-- **Font:** Oswald (display) + Barlow (body)
-- **Deploy:** Vercel
+## Features
 
-## Fitur
-
-- 🏠 **Beranda** — Hero broadcast, hasil terbaru, top skor, juara
-- ⚽ **Pertandingan** — 102 match, filter per babak / tanggal / LIVE
-- 📄 **Detail Match** — Scoreboard, countdown kickoff, prediksi skor, head-to-head
-- 📊 **Klasemen Grup** — 12 grup, klasemen dihitung otomatis dari hasil
-- 🏆 **Bracket** — Knockout 32 besar hingga final
-- 🛣️ **Jalur ke Final** — Perjalanan knockout tiap tim yang masih bertahan
-- 🗓️ **Timeline** — Kronologi pertandingan hari demi hari (rekap harian)
-- 🏟️ **Stadion** — 16 venue tuan rumah (kota, kapasitas, negara)
-- 🌍 **Tim** — 48 negara, filter per grup + halaman detail + grafik momentum
-- ⚔️ **Bandingkan Tim** — Adu statistik 2 tim side-by-side di `/compare`
-- 📈 **Statistik** — Top skor, assist, penalti (bar chart, filter per grup) + Golden Boot & Golden Ball
-- 🏁 **Balapan Golden Boot** — Bar chart animasi top skor di `/stats`
-- 🕐 **Filter Zona Waktu** — Jadwal match tampil WIB / WITA / WIT / Lokal di `/matches`
-- 🔮 **Prediksi + Poin** — Tebak skor, dapat poin (skor pas +3, tebak hasil +1)
-- 🏅 **Leaderboard Prediksi** — Rekap total poin + tebak juara di `/prediksi`
-- 📉 **Grafik Momentum** — Tren goal-diff kumulatif tim di halaman detail
-- 🤝 **Head-to-Head** — Agregat menang/seri/gol antar dua tim di detail match
-- 🔁 **Klasemen Live-Refresh** — Auto-refresh klasemen grup tiap menit
-- 🕐 **Jam WIB** — Jadwal match ditampilkan waktu lokal (Asia/Jakarta)
-- 🎉 **Confetti** — Muncul saat juara sudah ditentukan
-- 🔍 **Pencarian tim** — Cmd/Ctrl+K
-- 🌗 **Dark/Light** — Toggle tema, tersimpan di localStorage
-- 🎨 **Aksen tuan rumah** — Strip warna USA/Meksiko/Kanada
-- 🔴 **Badge LIVE** — indikator pertandingan berlangsung
-- ✨ **Skeleton loader** — placeholder saat data client-side dimuat
-- 🔍 **SEO** — sitemap.xml + robots.txt
-- 🔄 **Auto-refresh** — GitHub Actions sinkron data tiap 3 jam
-
-🌐 **Domain:** [www.piala-dunia.web.id](https://www.piala-dunia.web.id)
-
-## Format Turnamen
-
-48 tim, 12 grup (@4 tim), 104 pertandingan. Top 2 tiap grup + 8 peringkat-3 terbaik → 32 besar → 16 → 8 → semifinal → final.
+- Beranda (hero broadcast, hasil terbaru, top skor, juara)
+- 104 pertandingan (filter per babak/tanggal/LIVE)
+- Detail match (scoreboard, countdown, prediksi skor, head-to-head)
+- Klasemen 12 grup (dihitung otomatis dari hasil)
+- Bracket knockout (32 besar hingga final)
+- Jalur ke Final (perjalanan knockout tiap tim)
+- Timeline harian (rekap hari demi hari)
+- 16 stadion tuan rumah (kota, kapasitas, negara)
+- 48 tim (filter per grup, detail + grafik momentum)
+- Bandingkan Tim (statistik side-by-side)
+- Statistik pemain (top skor, assist, penalti + Golden Boot/Ball)
+- Balapan Golden Boot (bar chart animasi)
+- Filter zona waktu (WIB/WITA/WIT/Lokal)
+- Prediksi + poin (tebak skor, leaderboard)
+- Pencarian tim (Cmd/Ctrl+K)
+- Dark/Light mode
+- Badge LIVE + skeleton loader
+- Confetti saat juara ditentukan
+- Auto-refresh data (GitHub Actions tiap 3 jam)
+- SEO (sitemap.xml, robots.txt)
 
 ## Getting Started
 
@@ -55,88 +36,34 @@ npm install
 npm run dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000).
 
-## Build
+## Project Structure
+
+```
+src/
+  app/
+    page.tsx              → Beranda
+    matches/              → Daftar pertandingan
+    groups/               → Klasemen grup
+    bracket/              → Bracket knockout
+    stats/                → Statistik pemain
+    teams/                → Grid 48 tim + detail [code]
+  components/             → Navbar, Footer, MatchCard, GroupTable, BracketView, dll
+  lib/
+    data.ts               → AUTO-GENERATED (48 tim, 104 match, players)
+scripts/
+  fetch-data.mjs          → Generator data dari football-data.org
+```
+
+## Update Data
 
 ```bash
-npm run build
-```
-
-## Struktur Folder
-
-```
-pildun-claude/
-├── src/
-│   ├── app/
-│   │   ├── page.tsx              # Beranda
-│   │   ├── layout.tsx            # Root layout (fonts, nav, footer)
-│   │   ├── globals.css           # Design tokens + utilities
-│   │   ├── matches/page.tsx      # Daftar pertandingan
-│   │   ├── groups/page.tsx       # Klasemen grup
-│   │   ├── bracket/page.tsx      # Bracket knockout
-│   │   ├── stats/page.tsx        # Statistik pemain
-│   │   └── teams/
-│   │       ├── page.tsx          # Grid 48 tim
-│   │       └── [code]/page.tsx   # Detail tim (SSG)
-│   ├── components/
-│   │   ├── Navbar.tsx
-│   │   ├── Footer.tsx
-│   │   ├── MatchCard.tsx         # Scoreline broadcast-style
-│   │   ├── GroupTable.tsx        # Klasemen otomatis
-│   │   ├── BracketView.tsx       # Bracket knockout
-│   │   ├── TeamCard.tsx
-│   │   ├── Crest.tsx             # Logo tim (img)
-│   │   └── StatLeaders.tsx       # Leaderboard pemain
-│   └── lib/
-│       └── data.ts               # AUTO-GENERATED dari API (48 tim, 102 match, players)
-├── scripts/
-│   └── fetch-data.mjs            # Generator data dari football-data.org
-└── docs/superpowers/specs/       # Design spec
-```
-
-## Data
-
-Data di `src/lib/data.ts` **auto-generated** dari [football-data.org](https://www.football-data.org) API — data resmi & akurat.
-
-- `teams` — 48 tim (code, nama, crest/logo, grup)
-- `matches` — 102 pertandingan (skor, tanggal, status live/finished/scheduled)
-- `players` — top scorer (gol, assist, penalti)
-- Klasemen grup **dihitung otomatis** via `computeStandings()` dari hasil match
-
-### Update data (regenerate)
-
-```bash
-# Token gratis: https://www.football-data.org/client/register
 FOOTBALL_DATA_TOKEN=your_token node scripts/fetch-data.mjs
 ```
 
-Token JANGAN di-commit — simpan di `.env.local` (sudah di `.gitignore`). Jalankan ulang script untuk sinkron hasil terbaru.
-
-### Auto-refresh (GitHub Actions)
-
-Workflow `.github/workflows/refresh-data.yml` fetch data tiap 3 jam & commit otomatis. Setup sekali:
-
-1. Repo → **Settings → Secrets → Actions**
-2. Tambah secret `FOOTBALL_DATA_TOKEN` = token football-data.org
-
-Bisa juga dijalankan manual: Actions → "Refresh Data" → Run workflow.
-
-### Security: pin sharp ^0.35.3 (Juli 2026)
-
-`sharp` masuk sebagai optionalDependency dari `next`, ter-hoist ke root `node_modules` pada versi `0.34.5` — kena GHSA-f88m-g3jw-g9cj (vulnerable `< 0.35.0`, patched `0.35.0`). Ditambah blok `overrides` di `package.json` supaya npm memaksa `^0.35.3`. Catatan: di Vercel `next/image` dilayani infrastruktur Image Optimization Vercel, jadi `sharp` tidak ada di request path — ini menutup alert lockfile, bukan exploit aktif. `npm run build` sukses.
+Auto-refresh via GitHub Actions (tiap 3 jam). Setup secret `FOOTBALL_DATA_TOKEN` di repo settings.
 
 ## License
 
 MIT
-
-## Security: bump next 16.2.11 + pin postcss ^8.5.18 (Juli 2026)
-
-Dependabot (baru diaktifkan) melaporkan 12 alert terbuka: 9 di `next`, 3 di `postcss`. Tidak ada lagi alert `sharp` — blok `overrides` sebelumnya sudah menutupnya.
-
-- `next` `16.2.10` → `16.2.11`. Ke-9 advisory (4 high, 5 medium) semuanya punya range `>= 16.0.0, < 16.2.11`, jadi satu patch bump menutup semuanya. `eslint-config-next` ikut disamakan versinya.
-- `postcss` transitif — lockfile memuat root `8.5.17` **dan** bundel `next` `8.4.31`, keduanya di dalam range vulnerable `<= 8.5.17`. Ditambahkan ke blok `overrides` sebagai `^8.5.18` supaya kedua salinan ikut naik dan ter-dedupe jadi satu.
-
-**Sisa yang sengaja tidak dikejar:** `brace-expansion` (high, DoS) lewat rantai `eslint` → `minimatch`. Itu devDependency, tidak masuk bundle produksi, dan `npm audit fix` menuntut `eslint@10` yang breaking. Ditunda sampai upgrade eslint dilakukan sendiri.
-
-Verifikasi: `npm run build` EXIT=0, 0 error.
