@@ -1,6 +1,6 @@
 // AUTO-GENERATED oleh scripts/fetch-data.mjs — football-data.org (FIFA World Cup 2026)
 // Jangan edit manual. Jalankan ulang script untuk update: node scripts/fetch-data.mjs
-// Terakhir digenerate: 2026-08-30T11:59:07.348Z
+// Terakhir digenerate: 2026-08-30T16:44:59.696Z
 
 export type Stage = 'group' | 'round32' | 'round16' | 'quarter' | 'semi' | 'third-place' | 'final';
 export type MatchStatus = 'scheduled' | 'live' | 'finished';
