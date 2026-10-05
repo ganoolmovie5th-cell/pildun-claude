@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: `${home?.name} vs ${away?.name} - Piala Dunia 2026`,
     description: `Hasil ${home?.name} vs ${away?.name}, ${STAGE_LABELS[match.stage]} Piala Dunia 2026.`,
+    alternates: { canonical: `/matches/${id}` },
   };
 }
 

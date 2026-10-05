@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
   return {
     title: `${team.name} - Piala Dunia 2026`,
     description: `Jadwal, hasil, dan statistik ${team.name} di Piala Dunia 2026. Grup ${team.group}.`,
+    alternates: { canonical: `/teams/${code}` },
   };
 }
 
