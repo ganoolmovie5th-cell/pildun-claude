@@ -99,8 +99,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <GoogleTagManager gtmId="GTM-W7S5MNDD" />
       <body className="min-h-screen flex flex-col">
+        <GoogleTagManager gtmId="GTM-W7S5MNDD" />
         <ClientShell>{children}</ClientShell>
         <Footer />
         <Analytics />
