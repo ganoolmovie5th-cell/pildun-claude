@@ -11,7 +11,10 @@ export default function ChampionPicker() {
   const [loaded, setLoaded] = useState(false);
   const champ = getChampion();
 
+  // localStorage tidak tersedia saat SSR, jadi dibaca setelah mount — bukan
+  // state turunan, jadi set sinkron di sini memang perlu untuk hidrasi aman.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPick(localStorage.getItem('champPick') || '');
     setLoaded(true);
   }, []);

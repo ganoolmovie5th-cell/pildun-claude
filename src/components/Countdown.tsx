@@ -15,9 +15,11 @@ function diff(t: number) {
 
 export default function Countdown({ targetISO }: { targetISO: string }) {
   const target = new Date(targetISO).getTime();
-  const [c, setC] = useState<ReturnType<typeof diff>>(null);
+  const [c, setC] = useState<ReturnType<typeof diff>>(() => diff(target));
 
   useEffect(() => {
+    // Sinkronkan sekali saat target berubah, lalu update tiap detik.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setC(diff(target));
     const id = setInterval(() => setC(diff(target)), 1000);
     return () => clearInterval(id);

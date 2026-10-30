@@ -12,15 +12,17 @@ export default function MomentumChart({ teamCode, matches }: { teamCode: string;
     return <p className="text-sm text-text-dim">Belum cukup data untuk grafik momentum.</p>;
   }
 
-  let cum = 0;
-  const pts = played.map((m) => {
+  const pts = played.reduce<
+    { cum: number; opp: string; date: string; res: string; gf: number; ga: number }[]
+  >((acc, m) => {
     const gf = m.home === teamCode ? m.homeScore! : m.awayScore!;
     const ga = m.home === teamCode ? m.awayScore! : m.homeScore!;
-    cum += gf - ga;
+    const cum = (acc[acc.length - 1]?.cum ?? 0) + gf - ga;
     const opp = getTeamByCode(m.home === teamCode ? m.away : m.home);
     const res = gf > ga ? 'W' : gf < ga ? 'L' : 'D';
-    return { cum, opp: opp?.name ?? '', date: m.date, res, gf, ga };
-  });
+    acc.push({ cum, opp: opp?.name ?? '', date: m.date, res, gf, ga });
+    return acc;
+  }, []);
 
   const W = 300, H = 90, PAD = 14;
   const vals = pts.map((p) => p.cum);

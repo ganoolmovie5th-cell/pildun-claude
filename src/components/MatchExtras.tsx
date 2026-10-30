@@ -44,15 +44,18 @@ export default function MatchExtras({ matchId, home, away, kickoffISO, scheduled
 
   useEffect(() => {
     if (!scheduled) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCountdown(diff(target));
     const id = setInterval(() => setCountdown(diff(target)), 1000);
     return () => clearInterval(id);
   }, [target, scheduled]);
 
+  // Prediksi tersimpan dibaca dari localStorage setelah mount (SSR-safe).
   useEffect(() => {
     const raw = localStorage.getItem(`pred:${matchId}`);
     if (raw) {
       const p = JSON.parse(raw);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHomePred(String(p.home));
       setAwayPred(String(p.away));
       setSaved(true);

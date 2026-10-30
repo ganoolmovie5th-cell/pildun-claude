@@ -24,6 +24,7 @@ export default function PrediksiPage() {
   const [rows, setRows] = useState<Row[]>([]);
   const [loaded, setLoaded] = useState(false);
 
+  // Prediksi tersimpan dibaca dari localStorage setelah mount (SSR-safe).
   useEffect(() => {
     const out: Row[] = [];
     for (const m of matches) {
@@ -40,6 +41,7 @@ export default function PrediksiPage() {
         actHome: m.homeScore, actAway: m.awayScore, points: pts,
       });
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRows(out);
     setLoaded(true);
   }, []);

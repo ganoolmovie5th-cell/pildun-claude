@@ -24,8 +24,10 @@ export default function Navbar({ onSearchOpen }: { onSearchOpen?: () => void }) 
   const pathname = usePathname();
   const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
 
+  // Tema dibaca dari localStorage setelah mount (tidak tersedia saat SSR).
   useEffect(() => {
     const saved = (localStorage.getItem('theme') as 'dark' | 'light') || 'dark';
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(saved);
     document.documentElement.setAttribute('data-theme', saved);
   }, []);

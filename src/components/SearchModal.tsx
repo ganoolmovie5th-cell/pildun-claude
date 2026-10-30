@@ -19,8 +19,10 @@ export default function SearchModal({ open, onClose }: { open: boolean; onClose:
   const router = useRouter();
   const results = search(query);
 
+  // Reset input & fokus tiap kali modal dibuka — efek samping UI, bukan state turunan.
   useEffect(() => {
     if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery('');
       setTimeout(() => inputRef.current?.focus(), 50);
     }
