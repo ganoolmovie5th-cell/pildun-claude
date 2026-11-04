@@ -100,6 +100,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
       </head>
       <body className="min-h-screen flex flex-col">
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-W7S5MNDD"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
         <GoogleTagManager gtmId="GTM-W7S5MNDD" />
         <ClientShell>{children}</ClientShell>
         <Footer />
